@@ -23,13 +23,30 @@ Commands:
 
 ## Scaffolding DbContext
 
-`dotnet ef dbcontext scaffold Name=ConnectionStrings:SafeTravel Microsoft.EntityFrameworkCore.SqlServer --context-dir DbContexts --output-dir Models --project .\Dn6Poc.TravalApi\ --force`
+`dotnet ef dbcontext scaffold Name=ConnectionStrings:SafeTravel Microsoft.EntityFrameworkCore.SqlServer --context-dir DbContexts --output-dir Models --project .\Dn6Poc.TravalApi\ --force --no-onconfiguring`
 
 Warning: 
     The `--force` option overwrites any existing files! Use with care. 
     The idea here is that we should never make any changes to scaffolded code.
     If we do need to make enhancements, we should add them to partial classes.
+    The `--no-onconfiguring` option add `OnConfiguring` to the DbContext:
 
+```cs
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    if (!optionsBuilder.IsConfigured)
+    {
+        optionsBuilder.UseSqlServer("Name=ConnectionStrings:SafeTravel");
+    }
+}
+```
+
+This is problematic code because of the line:
+
+`optionsBuilder.UseSqlServer("Name=ConnectionStrings:SafeTravel");`
+
+The named-connectionString does not really work.
+So this is option is added in EF Core 5.0.
 
 If we are using a connectionString to scaffold:
 
