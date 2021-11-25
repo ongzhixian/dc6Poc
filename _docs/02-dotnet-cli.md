@@ -50,6 +50,11 @@ Run specific project.
 `dotnet watch run --project .\Dn6Poc.TravelApi\`
 
 Run specific project with hot-reload.
+By default, if we run the project with `dotnet watch run --project $args[0]`, the project runs in 'Development' mode.
+But if we run the project with `dotnet watch run --project $args[0]`, the project runs in 'Production' mode.
+To force the project to run in 'Development' mode with hot-reload, we should run it with:
+
+`dotnet watch run --project $args[0] environment=development`
 
 ## Add nuget packages 
 
