@@ -1,5 +1,15 @@
 # dotnet ef CLI
 
+## Install
+
+`dotnet tool install --global dotnet-ef`
+
+`dotnet tool update --global dotnet-ef`
+
+dotnet ef CLI requires this package
+
+`dotnet add package Microsoft.EntityFrameworkCore.Design`
+
 ## Manageing DbContext
 
 `dotnet ef dbcontext <command>`

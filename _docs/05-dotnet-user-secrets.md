@@ -44,7 +44,10 @@ The tool will create it after you start adding secrets.
 
 `dotnet user-secrets set ConnectionStrings:SafeTravel "Data Source=.;Database=SafeTravel;Trusted_Connection=True;" --project .\Dn6Poc.TravalApi\`
 
-"Server=(localdb)\\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true",
+"Server=(localdb)\\MSSQLLocalDB;Database=SafeTravel;Trusted_Connection=True;MultipleActiveResultSets=true"
+
+`dotnet user-secrets set ConnectionStrings:SafeTravel "Server=(localdb)\MSSQLLocalDB;Database=SafeTravel;Trusted_Connection=True;MultipleActiveResultSets=true" --project .\Dn6Poc.TravalApi\`
+
 
 ### Adding multiple secrets
 
