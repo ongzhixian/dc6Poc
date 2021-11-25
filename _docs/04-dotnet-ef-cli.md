@@ -41,11 +41,13 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 }
 ```
 
-This is problematic code because of the line:
+This is problematic code because of the following line that is generated:
 
 `optionsBuilder.UseSqlServer("Name=ConnectionStrings:SafeTravel");`
 
-The named-connectionString does not really work.
+The named-connectionString does not really work in .NET Core.
+It is meant to work with the connection string defined in using 
+.NET Framework styled configuration files (`app.config` or `web.config`).
 So this is option is added in EF Core 5.0.
 
 If we are using a connectionString to scaffold:
