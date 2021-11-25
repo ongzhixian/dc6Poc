@@ -6,7 +6,11 @@ public class GreetingService
     private readonly IConfiguration _configuration;
     private SafeTravelContext _context;
 
-    public GreetingService(IConfiguration configuration, ILogger<GreetingService> logger, SafeTravelContext context)
+    public GreetingService(
+        IConfiguration configuration
+        , ILogger<GreetingService> logger
+        , SafeTravelContext context
+    )
     {   
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -17,7 +21,7 @@ public class GreetingService
 
     public string SayHello(string name)
     {
-        var b = this._context.Blogs.FirstOrDefault();
+        var b = this._context.Blogs.First();
 
         return $"Hello {name} from {_configuration["Application:Author"]}, {b.Name}";
     }
