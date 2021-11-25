@@ -54,6 +54,8 @@ Run specific project with hot-reload.
 ## Add nuget packages 
 
 `dotnet add .\Dn6Poc.TravalApi\ package Microsoft.Extensions.DependencyInjection.Abstractions`
+`dotnet add .\Dn6Poc.TravalApi\ package Microsoft.EntityFrameworkCore.SqlServer`
+`dotnet add .\Dn6Poc.TravalApi\ package Microsoft.EntityFrameworkCore.Design`
 
 Add nuget package to project.
 
