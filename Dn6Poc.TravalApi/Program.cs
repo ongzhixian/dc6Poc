@@ -14,27 +14,19 @@ Console.WriteLine($"SafeTravel connectionString is: [{safeTravelConnectionString
 // Console.WriteLine($"Environment is: [{environment}]");
 
 
-
 // Setup dependencies for injection
 
-// var optionsBuilder = new DbContextOptionsBuilder<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>();
-// optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=SafeTravel;Trusted_Connection=True;MultipleActiveResultSets=true");
-// // optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["BloggingDatabase"].ConnectionString);
-
-// builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>(b =>
-//     b.UseSqlServer("asd")
-// );
-// builder.Services.AddSingleton<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>();
+// Works
 // builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>(
-//     options => options.UseSqlServer(safeTravelConnectionString)
-// );
-// builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>(
-//     options => options.);
+//     // o => o.UseSqlServer(safeTravelConnectionString) // Works
+//     //o => o.UseSqlServer("ConnectionStrings:SafeTravel") // NG
+//     // o => o.UseSqlServer("Name=ConnectionStrings:SafeTravel") // to try
+//     o => o.UseSqlServer("name=ConnectionStrings:SafeTravel") // works
+//     );
 
-builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>(
-    o => o.UseSqlServer(safeTravelConnectionString));
-
-builder.Services.AddScoped<GreetingService>();
+// Works
+builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>();
+builder.Services.AddSingleton<GreetingService>();
 // --OR--
 // builder.Services.AddSingleton<GreetingService>(new GreetingService(builder.Configuration));
 

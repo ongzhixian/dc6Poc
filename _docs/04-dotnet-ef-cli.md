@@ -23,32 +23,16 @@ Commands:
 
 ## Scaffolding DbContext
 
-`dotnet ef dbcontext scaffold Name=ConnectionStrings:SafeTravel Microsoft.EntityFrameworkCore.SqlServer --context-dir DbContexts --output-dir Models --project .\Dn6Poc.TravalApi\ --force --no-onconfiguring`
+`dotnet ef dbcontext scaffold Name=ConnectionStrings:SafeTravel Microsoft.EntityFrameworkCore.SqlServer --context-dir DbContexts --output-dir Models --project .\Dn6Poc.TravalApi\ --force`
 
 Warning: 
     The `--force` option overwrites any existing files! Use with care. 
     The idea here is that we should never make any changes to scaffolded code.
     If we do need to make enhancements, we should add them to partial classes.
-    The `--no-onconfiguring` option add `OnConfiguring` to the DbContext:
 
-```cs
-protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-{
-    if (!optionsBuilder.IsConfigured)
-    {
-        optionsBuilder.UseSqlServer("Name=ConnectionStrings:SafeTravel");
-    }
-}
-```
+The above use `Microsoft.EntityFrameworkCore.SqlServer` as the database provider.
+For a list of other database providers see: https://docs.microsoft.com/en-us/ef/core/dbcontext-configuration/
 
-This is problematic code because of the following line that is generated:
-
-`optionsBuilder.UseSqlServer("Name=ConnectionStrings:SafeTravel");`
-
-The named-connectionString does not really work in .NET Core.
-It is meant to work with the connection string defined in using 
-.NET Framework styled configuration files (`app.config` or `web.config`).
-So this is option is added in EF Core 5.0.
 
 If we are using a connectionString to scaffold:
 
@@ -76,6 +60,8 @@ https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding?tabs=dotne
 
 https://go.microsoft.com/fwlink/?linkid=2131148. 
 For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+
+https://docs.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli
 
 
 <CONNECTION> 	The connection string to the database. For ASP.NET Core 2.x projects, the value can be name=<name of connection string>. In that case the name comes from the configuration sources that are set up for the project.
