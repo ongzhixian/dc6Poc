@@ -15,5 +15,6 @@
 8.  <graphql>
 9.  <playwright>
 10. <cosmosdb?>
+11. <leaflet/GIS>
 
 ##
