@@ -16,5 +16,6 @@
 9.  <playwright>
 10. <cosmosdb?>
 11. <leaflet/GIS>
+12. <rabbitmq>
 
 ##
