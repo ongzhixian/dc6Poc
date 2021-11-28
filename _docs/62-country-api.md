@@ -13,6 +13,12 @@ dotnet add .\Dn6Poc.CountryApi\ package Serilog.Extensions.Hosting
 dotnet add .\Dn6Poc.CountryApi\ package Serilog.Settings.Configuration
 dotnet add .\Dn6Poc.CountryApi\ package Serilog.Formatting.Compact
 dotnet add .\Dn6Poc.CountryApi\ package Swashbuckle.AspNetCore
+
+REM Additional
+dotnet add .\Dn6Poc.CountryApi\ package Swashbuckle.AspNetCore.Annotations
+dotnet add .\Dn6Poc.CountryApi\ package Swashbuckle.AspNetCore.Cli
+dotnet add .\Dn6Poc.CountryApi\ package Swashbuckle.AspNetCore.ReDoc
+
 ```
 
 dotnet build .\Dn6Poc.CountryApi\
