@@ -1,5 +1,5 @@
 using Serilog;
-
+using Microsoft.OpenApi.Models;
 public sealed class StartupService
 {
     public static void PrintConfigurationSettings(ConfigurationManager config)
@@ -23,6 +23,32 @@ public sealed class StartupService
     {
         ////////////////////////////////////////
         // Setup dependencies for injection
+
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "Travel API",
+                Description = "An ASP.NET Core Web API for managing Travel API items",
+                TermsOfService = new Uri("https://example.com/terms"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Example Contact",
+                    Url = new Uri("https://example.com/contact")
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Example License",
+                    Url = new Uri("https://example.com/license")
+                }
+            });
+
+            // Old style of documenting REST WebApi via XML
+            // var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            // options.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, xmlFilename));
+        });
 
         // Works
         // builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>(
@@ -60,7 +86,6 @@ public sealed class StartupService
         {
             loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
         });
-
     }
 
 

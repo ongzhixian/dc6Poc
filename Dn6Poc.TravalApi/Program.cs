@@ -17,10 +17,38 @@ using (var app = builder.Build())
 
     log.LogInformation("Application start");
 
+    ////////////////////////////////////////
+    // Setup routes
+
+    RouteService.ConfigureRoutes(app, log);
+    // app.MapGet("/", () => "Hello World!");
+    // app.MapGet("/hello", (HttpContext context, GreetingService greetingService) => greetingService.SayHello(context.Request.Query["name"].ToString()));
+
+
     if (app.Environment.IsDevelopment())
     {
         app.UseDeveloperExceptionPage();
+        app.UseSwagger();
+        // app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My APIddd V1"); 
+        });
+
+        // Old style of using Swagger
+        // app.UseSwagger(options =>
+        // {
+        //     // Uncomment below to serialize to v2 instead of v3 (OpenApi)
+        //     // options.SerializeAsV2 = true;
+        // });
+        // app.UseSwaggerUI(options =>
+        // {
+        //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        //     options.RoutePrefix = string.Empty;
+        // });
+
         Console.WriteLine("Development environment");
+        // UseSwagger in development mode only
     }
     else
     {
@@ -28,14 +56,14 @@ using (var app = builder.Build())
         // app.UseHsts();
         // app.UseCors();
         Console.WriteLine("Other  environment");
+
+        // app.UseHttpsRedirection();
+        // app.UseStaticFiles();
+
+        // Add this line; you'll need `using Serilog;` up the top, too
+        //app.UseSerilogRequestLogging();
     }
 
-    ////////////////////////////////////////
-    // Setup routes
-
-    RouteService.ConfigureRoutes(app, log);
-    // app.MapGet("/", () => "Hello World!");
-    // app.MapGet("/hello", (HttpContext context, GreetingService greetingService) => greetingService.SayHello(context.Request.Query["name"].ToString()));
 
     app.Run();
 

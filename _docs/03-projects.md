@@ -6,12 +6,11 @@
 2.  <a full-fledge WebApi project>
     based on `dotnet new webapi -n <project-name>`
     Demo WebApi project.
-    Logging
-    OpenApi, OpenTelemetry
+    Logging (Serilog)
+    OpenApi
     RSS
-    MongoDb
-
-
+    OpenTelemetry
+    MongoDb | LiteDb | Sqlite
 
 
 ## Tech
