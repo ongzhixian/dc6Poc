@@ -1,50 +1,87 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Initial = StartupService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Initial.SetupInjectionServices(builder.Services);
 
-// Code examples for reference of reading configuration from the appsettings.json file and user-secrets
+// Initial.SetupContentRoot(builder.Host);
 
-var safeTravelConnectionString = builder.Configuration["ConnectionStrings:SafeTravel"];
-Console.WriteLine($"SafeTravel connectionString is: [{safeTravelConnectionString}]");
-// var author = builder.Configuration["Application:Author"];
-// Console.WriteLine("Author: " + author);
-// var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-// Console.WriteLine($"Environment is: [{environment}]");
+Initial.SetupLogging(builder.Host);
 
+Initial.PrintConfigurationSettings(builder.Configuration);
 
-// Setup dependencies for injection
-
-// Works
-// builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>(
-//     // o => o.UseSqlServer(safeTravelConnectionString) // Works
-//     //o => o.UseSqlServer("ConnectionStrings:SafeTravel") // NG
-//     // o => o.UseSqlServer("Name=ConnectionStrings:SafeTravel") // to try
-//     o => o.UseSqlServer("name=ConnectionStrings:SafeTravel") // works
-//     );
-
-// Works
-builder.Services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>();
-builder.Services.AddSingleton<GreetingService>();
-// --OR--
-// builder.Services.AddSingleton<GreetingService>(new GreetingService(builder.Configuration));
-
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+using (var app = builder.Build())
 {
-    Console.WriteLine("Development environment");
+    ILogger log = app.Services.GetRequiredService<ILogger<Program>>();
+
+    log.LogInformation("Application start");
+
+    ////////////////////////////////////////
+    // Setup routes
+
+    RouteService.ConfigureRoutes(app, log);
+    // app.MapGet("/", () => "Hello World!");
+    // app.MapGet("/hello", (HttpContext context, GreetingService greetingService) => greetingService.SayHello(context.Request.Query["name"].ToString()));
+
+
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+        app.UseSwagger();
+        // app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My APIddd V1"); 
+        });
+
+        // Old style of using Swagger
+        // app.UseSwagger(options =>
+        // {
+        //     // Uncomment below to serialize to v2 instead of v3 (OpenApi)
+        //     // options.SerializeAsV2 = true;
+        // });
+        // app.UseSwaggerUI(options =>
+        // {
+        //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        //     options.RoutePrefix = string.Empty;
+        // });
+
+        Console.WriteLine("Development environment");
+        // UseSwagger in development mode only
+    }
+    else
+    {
+        // app.UseExceptionHandler()
+        // app.UseHsts();
+        // app.UseCors();
+        Console.WriteLine("Other  environment");
+
+        // app.UseHttpsRedirection();
+        // app.UseStaticFiles();
+
+        // Add this line; you'll need `using Serilog;` up the top, too
+        //app.UseSerilogRequestLogging();
+    }
+
+
+    app.Run();
+
 }
-else
-{
-    Console.WriteLine("Other  environment");
-}
 
-
-app.MapGet("/", () => "Hello World!");
-
-app.MapGet("/hello", (HttpContext context, GreetingService greetingService) => greetingService.SayHello(context.Request.Query["name"].ToString()));
-
-app.Run();
+// using (ILoggerFactory loggerFactory = new LoggerFactory())
+// using (IHost host = CreateHostBuilder(args).Build())
+// {
+//     IServiceProvider services = host.Services;
+//     ILogger log = services.GetRequiredService<ILogger<Program>>();
+//     log.LogInformation("Application start");
+//     try
+//     {
+//         await host.RunAsync();
+//     }
+//     catch (Exception ex)
+//     {
+//         log.LogError(ex, string.Empty);
+//         throw;
+//     }
+// }
