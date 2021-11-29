@@ -35,3 +35,13 @@
 18. <Benchmarkdotnet | Crank>
 19. <Logging>
 20. <CouchDB | OrientDB | RethinkDB | ArangoDB | Snowflake>
+
+## Applications
+
+Supermarket 
+Forums
+Jobs
+Wiki/Doc
+Timesheet
+Payroll
+Onboarding
