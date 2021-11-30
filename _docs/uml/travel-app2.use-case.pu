@@ -1,0 +1,43 @@
+@startuml 
+
+' Document what travel-app can do
+
+left to right direction
+
+title Can I Fly (ZX)
+
+caption Can I Fly (use-cases)
+
+' --------------------------------------------------------------------------------
+' Actor(s) definitions
+
+"Site Administrator"    as Admin
+"End User"              as User
+
+User <|-- Admin
+
+
+' --------------------------------------------------------------------------------
+' Action(s) (Use-cases) definitions
+
+rectangle "End User actions" {
+"Lookup travel information"             as (Lookup)
+"Explore countries travel conditions"   as (Explore)
+}
+
+rectangle "Administrator actions" {
+"Admin the application"                 as (Administer)
+}
+
+
+' --------------------------------------------------------------------------------
+' Actor-Use-Cases
+User -> (Lookup)
+User -> (Explore)
+Admin -> (Administer)
+
+':User: --> (Use)
+'Admin --> (Admin the application)
+
+
+@enduml
