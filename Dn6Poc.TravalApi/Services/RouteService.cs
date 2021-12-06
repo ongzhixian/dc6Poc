@@ -29,7 +29,7 @@ public sealed class RouteService
 
         
         // string prefix = "/country";
-        app.MapGet("/country", () => "TODO: list countries");
+        app.MapGet("/country", async (HttpContext http, CountryService service) => await service.Get(http));
         app.MapGet("/country/{id}", () => "TODO: return country");
         app.MapPost("/country", () => "TODO: add new country").WithTags("Create");
 

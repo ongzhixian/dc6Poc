@@ -67,6 +67,7 @@ public sealed class StartupService
 
         services.AddDbContext<Dn6Poc.TravalApi.DbContexts.SafeTravelContext>();
         services.AddScoped<GreetingService>();
+        services.AddScoped<CountryService>();
     }
 
     // public static void SetupContentRoot(ConfigureHostBuilder host)
