@@ -63,5 +63,7 @@ To force the project to run in 'Development' mode with hot-reload, we should run
 `dotnet add .\Dn6Poc.TravalApi\ package Microsoft.EntityFrameworkCore.Design`
 
 `dotnet add .\Dn6Poc.TravalApi\ package Serilog`
+
+`dotnet add .\Dn6Poc.TravalApi\ package MongoDB.Driver`
 Add nuget package to project.
 
