@@ -37,10 +37,9 @@ public sealed class RouteService
         //     var result = await countryService.GetCountriesAsync();
         //     return await http.Response.WriteAsJsonAsync<List<MongoDb.Country>>(result);
         // });
-        app.MapGet("/country2", async (CountryService service) => await service.GetCountriesAsync());
+        // app.MapGet("/country2", async (CountryService service) => await service.GetCountriesAsync());
         
-
-        app.MapGet("/country/{id}", async (CountryService service, string id) => await service.GetCountry(id));
+        // app.MapGet("/country/{id}", async (CountryService service, string id) => await service.GetCountry(id));
         
         
         app.MapPost("/country", () => "TODO: add new country").WithTags("Create");
