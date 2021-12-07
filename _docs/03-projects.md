@@ -2,8 +2,12 @@
 
 1.  TravalApi
     Demo minimal WebApi project.
+
+2.  CountryApi
+    Standard for a microservice WebApi.
     
-2.  <a full-fledge WebApi project>
+    
+3.  <a full-fledge WebApi project>
     based on `dotnet new webapi -n <project-name>`
     Demo WebApi project.
     Logging (Serilog)
