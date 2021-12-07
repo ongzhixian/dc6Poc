@@ -1,4 +1,6 @@
 using Dn6Poc.TravalApi.Models;
+using MongoDb = Dn6Poc.TravalApi.Models.MongoDb;
+
 
 public sealed class RouteService
 {
@@ -26,13 +28,22 @@ public sealed class RouteService
         //app.MapPost   // Add country      /country
         //app.MapPut    // Update country   /country/SG
         //app.MapDelete // Remove country   /country/SG
-
         
         // string prefix = "/country";
         app.MapGet("/country", async (HttpContext http, CountryService service) => await service.Get(http));
-        app.MapGet("/country/{id}", () => "TODO: return country");
-        app.MapPost("/country", () => "TODO: add new country").WithTags("Create");
 
+        // app.MapGet("/country2", async (HttpContext http) => {
+        //     HttpContext http
+        //     var result = await countryService.GetCountriesAsync();
+        //     return await http.Response.WriteAsJsonAsync<List<MongoDb.Country>>(result);
+        // });
+        app.MapGet("/country2", async (CountryService service) => await service.GetCountriesAsync());
+        
+
+        app.MapGet("/country/{id}", async (CountryService service, string id) => await service.GetCountry(id));
+        
+        
+        app.MapPost("/country", () => "TODO: add new country").WithTags("Create");
         app.MapPut("/country/{id}", (http) => {  
             http.Response.StatusCode = 200; 
             // http.Response.Body.WriteAsync() = "TODO: update existing country";
