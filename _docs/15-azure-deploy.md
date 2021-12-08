@@ -7,6 +7,7 @@ az functionapp create --resource-group dn6poc-travel-func-rg --consumption-plan-
 
 func azure functionapp publish dn6poc-travel-func
 
+func azure functionapp logstream dn6poc-travel-func
 
 ## Remarks
 

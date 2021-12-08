@@ -6,6 +6,8 @@
 2.  CountryApi
     Standard for a microservice WebApi.
     
+3.  TravelFunc
+    Api on Azure Functions
     
 3.  <a full-fledge WebApi project>
     based on `dotnet new webapi -n <project-name>`

@@ -52,6 +52,15 @@ The following packages are required to run your .NET functions in an isolated pr
     Microsoft.Azure.Functions.Worker.Sdk
 
 
+## About IActionResult
+
+You can't return IActionResult with with Azure Functions using the isolated process model. 
+
+    For HTTP triggers, you must use HttpRequestData and HttpResponseData to access the request and response data. 
+    This is because you don't have access to the original HTTP request and response objects when running out-of-process.
+
+Instead of IActionResult, you need to return HttpResponseData.
+
 
 # Reference
 
