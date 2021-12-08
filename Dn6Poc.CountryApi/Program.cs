@@ -22,6 +22,12 @@ builder.Host.UseSerilog((hostBuilderContext, loggerConfiguration) =>
     loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "DebugAllowAll",
+                      builder => builder.WithOrigins("*"));
+});
+
 var app = builder.Build();
 
 ILogger log = app.Services.GetRequiredService<ILogger<Program>>();
@@ -163,7 +169,7 @@ if (app.Environment.IsDevelopment())
 // Console.WriteLine("Other  environment");
 // app.UseExceptionHandler()
 // app.UseHsts();
-// app.UseCors();
+app.UseCors();
 
 // app.UseHttpsRedirection();
 app.UseStaticFiles();
