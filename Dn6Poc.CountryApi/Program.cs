@@ -22,11 +22,11 @@ builder.Host.UseSerilog((hostBuilderContext, loggerConfiguration) =>
     loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "DebugAllowAll",
-                      builder => builder.WithOrigins("*"));
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy(name: "DebugAllowAll",
+//                       builder => builder.WithOrigins("*"));
+// });
 
 var app = builder.Build();
 
@@ -35,13 +35,24 @@ ILogger log = app.Services.GetRequiredService<ILogger<Program>>();
 log.LogInformation("Application start");
 
 
-// GET      /country        // "/" --or-- ""
-// GET      /country/{id}   // "/country/sg"
-// POST     /country        // "/country"
-// PUT      /country/{id}   // "/country/sg"
-// DELETE   /country/{id}   // "/country/sg"
+app.MapGet("/hello", () => "Hello named route")
+   .WithName("hi"); 
+   // Ah! WithName defines an internally-only named route. 
+   // We can then refer to using LinkGenerator `linker.GetPathByName("hi", values: null)}`
 
-app.MapGet("/country", async (CountryService countryService) => (await countryService.GetCountriesAsync()).Select(x => new {
+app.MapGet("/", (LinkGenerator linker) => 
+        $"The link to the hello route is {linker.GetPathByName("hi", values: null)}");
+        // The chunk `{linker.GetPathByName("hi", values: null)}` will display "/hello" (because of the WithName)
+
+
+// GET      /country                // "/" --or-- ""
+// GET      /country?startswith=id  // "/{id}"
+// GET      /country/{id}           // "/country/sg"
+// POST     /country                // "/country"
+// PUT      /country/{id}           // "/country/sg"
+// DELETE   /country/{id}           // "/country/sg"
+
+app.MapGet("/country", async (string? startswith, CountryService countryService) => (await countryService.GetCountriesAsync(startswith)).Select(x => new {
     name = x.Name,
     code = x.Code
 }));
@@ -154,6 +165,11 @@ app.MapGet("/country", async (CountryService countryService) => (await countrySe
 // .WithName("ASAS")
 // ;
 
+
+// Handling the other HTTP methods like options or head
+// app.MapMethods("/options-or-head", new[] { "OPTIONS", "HEAD" }, 
+//                           () => "This is an options or head request ");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -169,7 +185,7 @@ if (app.Environment.IsDevelopment())
 // Console.WriteLine("Other  environment");
 // app.UseExceptionHandler()
 // app.UseHsts();
-app.UseCors();
+// app.UseCors();
 
 // app.UseHttpsRedirection();
 app.UseStaticFiles();

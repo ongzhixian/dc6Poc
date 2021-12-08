@@ -23,11 +23,15 @@ public class CountryService
         _logger.LogInformation("CountryService created");
     }
 
-    public async Task<List<Country>> GetCountriesAsync()
+    public async Task<List<Country>> GetCountriesAsync(string startswith)
     {
+        _logger.LogInformation($"GetCountriesAsync called; startswith: [{startswith}]");
+
+        var filter = Builders<Country>.Filter.Regex(x => x.Name, new BsonRegularExpression($"^{startswith}", "i"));
+
         ProjectionDefinition<Country> projection = "{ id: 0 }";
 
-        var cursor = await _countries.FindAsync<Country>(FilterDefinition<Country>.Empty, new FindOptions<Country, Country>() { Projection = projection });
+        var cursor = await _countries.FindAsync<Country>(filter, new FindOptions<Country, Country>() { Projection = projection });
 
         return await cursor.ToListAsync();
     }
