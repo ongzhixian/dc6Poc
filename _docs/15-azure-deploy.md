@@ -72,9 +72,25 @@ If you find this to be as tedious as it is, you can enter blocks of IP addresses
 20.195.0.0/16
 20.43.0.0/16
 
-There's also Atlas Administration API (but not sure if it allows you to whitelist IP addresses):
+There's also Atlas Administration API (but not sure if it allows you to whitelist IP addresses -- something to try out):
 https://docs.atlas.mongodb.com/api/
 
+
+## local.settings.json
+
+
+```json
+"IsEncrypted": false,
+"Values": { ... },
+"Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*",
+    "CORSCredentials": false
+},
+"ConnectionStrings": {
+    "SQLConnectionString": "<sqlclient-connection-string>"
+}
+```
 
 ## Reference
 
