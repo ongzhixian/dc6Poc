@@ -59,7 +59,7 @@ app.MapGet("/", (LinkGenerator linker) =>
 // PUT      /country/{id}           // "/country/sg"
 // DELETE   /country/{id}           // "/country/sg"
 
-app.MapGet("/country", async (string? startswith, CountryService countryService) => (await countryService.GetCountriesAsync(startswith)).Select(x => new {
+app.MapGet("/country", async (string startswith, CountryService countryService) => (await countryService.GetCountriesAsync(startswith)).Select(x => new {
     name = x.Name,
     code = x.Code
 }));
