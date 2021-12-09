@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 env:
-  AZURE_FUNCTIONAPP_NAME: dn6poc-travel-func  # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './Dn6Poc.TravelFunc'    # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_NAME: dn6poc-travel-func            # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './Dn6Poc.TravelFunc' # set this to the path to your web app project, defaults to the repository root ('.')
 
 jobs:
   build:
@@ -27,12 +27,15 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    # Everything looks OK; Now make release build  
     - name: 'Build (Release)'
       shell: pwsh
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
         dotnet build --configuration Release --output ./output
         popd
+    # Then login to Azure and deploy it
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
