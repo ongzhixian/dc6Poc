@@ -94,6 +94,7 @@ namespace Dn6Poc.TravelFunc
 
             try
             {
+
                 _appUsers.InsertOne(user);
 
                 _logger.LogInformation("AppUser created.");
