@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  AZURE_FUNCTIONAPP_NAME: dn6poc-travel-func  # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './Dn6Poc.TravelFunc'    # set this to the path to your web app project, defaults to the repository root
+
 jobs:
   build:
 
@@ -28,3 +32,15 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - run: |
         az webapp list
+    - name: 'Run dotnet'
+      shell: pwsh
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        dotnet build --configuration Release --output ./output
+        popd
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
