@@ -17,9 +17,9 @@ namespace Dn6Poc.TravelFunc
     public class AppUserApi
     {
         private readonly ILogger _logger;
-        private readonly AppUserService _appUserService;
+        private readonly IAppUserService _appUserService;
 
-        public AppUserApi(ILoggerFactory loggerFactory, AppUserService appUserService)
+        public AppUserApi(ILoggerFactory loggerFactory, IAppUserService appUserService)
         {
             _appUserService = appUserService ?? throw new ArgumentNullException(nameof(appUserService));
             _logger = loggerFactory.CreateLogger<AppUserApi>();

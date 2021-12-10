@@ -9,7 +9,15 @@ using Microsoft.Extensions.Logging;
 
 namespace Dn6Poc_TravelFunc.Services
 {
-    public class AppUserService
+    public interface IAppUserService
+    {
+        Task AddUserAsync(AppUser appUser);
+        Task<AppUser> DeleteUserAsync(string username);
+        Task<AppUser> FindUserByIdAsync(string id);
+        Task<AppUser> UpdateUser(string userName, string newPassword);
+    }
+
+    public class AppUserService : IAppUserService
     {
         private readonly ILogger _logger;
 
@@ -20,7 +28,7 @@ namespace Dn6Poc_TravelFunc.Services
             _logger = loggerFactory.CreateLogger<AppUserService>();
 
             var database = client.GetDatabase("safe_travel");
-            
+
             _appUsers = database.GetCollection<AppUser>("appUser");
         }
 
