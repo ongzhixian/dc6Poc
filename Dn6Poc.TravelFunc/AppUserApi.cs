@@ -5,6 +5,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Dn6Poc.CountryApi.Models;
+using Dn6Poc_TravelFunc.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -16,29 +17,12 @@ namespace Dn6Poc.TravelFunc
     public class AppUserApi
     {
         private readonly ILogger _logger;
-        private readonly IMongoCollection<AppUser> _appUsers;
+        private readonly AppUserService _appUserService;
 
-
-        public AppUserApi(ILoggerFactory loggerFactory, IMongoClient client)
+        public AppUserApi(ILoggerFactory loggerFactory, AppUserService appUserService)
         {
+            _appUserService = appUserService ?? throw new ArgumentNullException(nameof(appUserService));
             _logger = loggerFactory.CreateLogger<AppUserApi>();
-
-            //var client = new MongoClient(System.Environment.GetEnvironmentVariable("mongoDb:safeTravel"));
-            var database = client.GetDatabase("safe_travel");
-            _appUsers = database.GetCollection<AppUser>("appUser");
-        }
-
-        [Function("ListAppUser")]
-        public HttpResponseData ListAppUser([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "AppUser")] HttpRequestData req)
-        {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
-
-            var response = req.CreateResponse(HttpStatusCode.OK);
-            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-
-            response.WriteString("Welcome to Azure Functions!");
-
-            return response;
         }
 
         [Function("GetAppUser")]
@@ -53,9 +37,7 @@ namespace Dn6Poc.TravelFunc
 
             try
             {
-                IAsyncCursor<AppUser> cursor = await _appUsers.FindAsync(m => m.Id == id);
-
-                AppUser result = await cursor.FirstOrDefaultAsync();
+                AppUser result = await _appUserService.FindUserByIdAsync(id);
 
                 if (result == null)
                 {
@@ -94,8 +76,7 @@ namespace Dn6Poc.TravelFunc
 
             try
             {
-
-                _appUsers.InsertOne(user);
+                await _appUserService.AddUserAsync(user);
 
                 _logger.LogInformation("AppUser created.");
                 return req.CreateResponse(HttpStatusCode.Created);
@@ -136,12 +117,7 @@ namespace Dn6Poc.TravelFunc
 
             try
             {
-                var filter = Builders<AppUser>.Filter.Eq(x => x.Username, user.Username);
-
-                AppUser result = _appUsers.FindOneAndUpdate<AppUser>(
-                    m => m.Username == user.Username,
-                    Builders<AppUser>.Update.Set(m => m.Password, user.Password)
-                    );
+                AppUser result = await _appUserService.UpdateUser(user.Username, user.Password);
 
                 if (result == null)
                 {
@@ -180,7 +156,7 @@ namespace Dn6Poc.TravelFunc
 
             try
             {
-                AppUser result = await _appUsers.FindOneAndDeleteAsync<AppUser>(m => m.Username == user.Username);
+                AppUser result = await _appUserService.DeleteUserAsync(user.Username);
 
                 if (result == null)
                 {
