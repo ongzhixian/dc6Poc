@@ -22,7 +22,7 @@ Describe "HTTP POST $path" -Tags @("HTTP", "POST", $path) {
             "Content-Type" = "application/json"
         }
         $body = @{
-            "username" = "testuser";
+            "username" = "testuser2";
             "password" = "testpassw0rd"
         } | ConvertTo-Json -Compress
 
