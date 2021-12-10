@@ -19,8 +19,9 @@ namespace Dn6Poc_TravelFunc
                 {
                     //services.AddScoped<ITravelFuncService, AppUserService>(a => new AppUserService(
                     //    new MongoClient(System.Environment.GetEnvironmentVariable("mongoDb:safeTravel"))));
-
+                    
                     services.AddScoped<IMongoClient>(_ => new MongoClient(System.Environment.GetEnvironmentVariable("mongoDb:safeTravel")));
+                    services.AddScoped<AppUserService, AppUserService>();
                 })
                 .Build();
 
