@@ -196,17 +196,17 @@ namespace Dn6Poc.TravelFunc.Tests
             Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
         }
 
-        [TestMethod()]
-        public void UpdateAppUserTest()
-        {
+        //[TestMethod()]
+        //public void UpdateAppUserTest()
+        //{
             
-            Assert.Fail();
-        }
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void DeleteAppUserTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void DeleteAppUserTest()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }
