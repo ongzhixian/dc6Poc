@@ -13,7 +13,7 @@ public class WeatherForecast
     public string? Summary { get; set; }
 }
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase

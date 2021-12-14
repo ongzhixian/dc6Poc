@@ -46,6 +46,7 @@ Describe "HTTP GET $path" -Tags @("HTTP", "GET", $path) {
         $url = "$base_url$path"
         $headers = @{
             "Content-Type" = "application/json"
+            "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIyIiwiZXhwIjoxNjM5NDg2NDMyLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MjQxLyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcyNDEvIn0.T-rsu1kBvKzDirxw18gDZ6b0k8HdWiNN8mlcmzGJTEA"
         }
 
         # Act
