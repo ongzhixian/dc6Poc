@@ -349,9 +349,13 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+
 # Zx custom
 ako.ps1
 *.test.ps1
 *secrets.json
 MyReference-*
 ignore-*.*
+
+!Tests/**/*.test.ps1
+

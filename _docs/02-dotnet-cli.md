@@ -22,6 +22,8 @@ Use:
 Create new empty web project (suitable for minimal WebApi projects):
 
 `dotnet new web -n Dn6Poc.TravalApi`
+`dotnet new mvc -n Dn6Poc.DocuMgmtPortal`
+
 
 Create new WebApi project:
 
@@ -30,6 +32,7 @@ Create new WebApi project:
 ## Add project to solution
 
 `dotnet sln .\dn6Poc.sln add .\Dn6Poc.TravelApi\`
+
 
 ## Build
 
@@ -68,6 +71,8 @@ To force the project to run in 'Development' mode with hot-reload, we should run
 
 `dotnet add .\Dn6Poc.CountryApi\ package MongoDB.Driver`
 
+`dotnet add .\Dn6Poc.DocuMgmtPortal\ package Microsoft.AspNetCore.Authentication.JwtBearer`
+`dotnet add .\Dn6Poc.DocuMgmtPortal\ package Swashbuckle.AspNetCore`
 
 Add nuget package to project.
 

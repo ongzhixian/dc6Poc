@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc_TravelFunc", "Dn6Poc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc_TravelFunc.Tests", "Dn6Poc_TravelFunc.Tests\Dn6Poc_TravelFunc.Tests.csproj", "{D6BDF678-B241-4A11-BF6B-4B1377CDAC76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc.DocuMgmtPortal", "Dn6Poc.DocuMgmtPortal\Dn6Poc.DocuMgmtPortal.csproj", "{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +74,17 @@ Global
 		{D6BDF678-B241-4A11-BF6B-4B1377CDAC76}.Release|x64.Build.0 = Release|Any CPU
 		{D6BDF678-B241-4A11-BF6B-4B1377CDAC76}.Release|x86.ActiveCfg = Release|Any CPU
 		{D6BDF678-B241-4A11-BF6B-4B1377CDAC76}.Release|x86.Build.0 = Release|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Debug|x64.Build.0 = Debug|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Debug|x86.Build.0 = Debug|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x64.ActiveCfg = Release|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x64.Build.0 = Release|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x86.ActiveCfg = Release|Any CPU
+		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
