@@ -26,3 +26,8 @@ https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspne
 https://stackoverflow.com/questions/40684357/decrypt-aspnetcore-session-cookie-in-asp-net-core
 
 https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
+
+https://alimozdemir.medium.com/asp-net-core-jwt-and-refresh-token-with-httponly-cookies-b1b96c849742
+https://dev.to/moe23/refresh-jwt-with-refresh-tokens-in-asp-net-core-5-rest-api-step-by-step-3en5
+
+https://www.yogihosting.com/jwt-refresh-token-aspnet-core/
