@@ -15,6 +15,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -24,6 +25,7 @@ public class LoginModel
     public string Password { get; set; }
 }
 
+//[AllowAnonymous]
 [ApiController]
 [Route("api/[controller]")]
 public class AuthenticationController : ControllerBase
@@ -51,11 +53,17 @@ public class AuthenticationController : ControllerBase
     //     // .ToArray();
     // }
 
+    [HttpGet(Name = "HelloWorld")]
+    public string Get()
+    {
+        return "Helo API OWRLD";
+    }
+
     [HttpPost]
     [Route("login")]
     public IActionResult Login([FromBody] LoginModel model)
     {
-
+        _logger.LogInformation("Yep in login API");
             // var authClaims = new List<Claim>
             //     {
             //         new Claim(ClaimTypes.Name, user.UserName),
@@ -126,4 +134,5 @@ public class AuthenticationController : ControllerBase
 
         return Unauthorized();
     }
+
 }
