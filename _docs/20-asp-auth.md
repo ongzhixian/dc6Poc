@@ -2,12 +2,26 @@
 
 ## Require authenticated users
 
+```cs
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
 });
+```
+
+
+# Authorize and Razor Pages CSS
+
+If using `_Layout.cshtml.css`, you may encouner file errors such as:
+
+```
+The stylesheet https://localhost:5001/Login?ReturnUrl=%2FDn6Poc.DocuMgmtPortal.styles.css was not loaded because its MIME type, “text/html”, is not “text/css”.
+```
+
+So we have to add some rule to skip authorization checks or just put them in static CSS files.
+
 
 # Reference
 

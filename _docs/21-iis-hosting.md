@@ -26,7 +26,16 @@ Without the hosting bundle, IIS will not be able recoginize the `aspNetCore` ele
 
 # Reference:
 
+Publish an ASP.NET Core app to IIS
 https://docs.microsoft.com/en-us/aspnet/core/tutorials/publish-to-iis?view=aspnetcore-6.0&tabs=visual-studio
+
 https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/web-config?view=aspnetcore-6.0
 
+The .NET Core Hosting Bundle
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-6.0
+
 https://docs.microsoft.com/en-US/troubleshoot/iis/http-error-500-19-webpage
+
+
+Transform web.config
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/transform-webconfig?view=aspnetcore-6.0
