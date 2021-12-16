@@ -1,12 +1,34 @@
 using System.Text;
+using Dn6Poc.DocuMgmtPortal.Logging;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Http;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddHttpClient(); // Add IHttpClientFactory
+
+builder.Services.AddHttpLogging(logging =>
+{
+    // Customize HTTP logging here.
+    logging.LoggingFields = HttpLoggingFields.All;
+    //logging.RequestHeaders.Add("My-Request-Header");
+    //logging.ResponseHeaders.Add("My-Response-Header");
+    //logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
+
+// Place the following after all AddHttpClient registrations to implement our custom logging
+builder.Services.RemoveAll<IHttpMessageHandlerBuilderFilter>();
+builder.Services.AddSingleton<IHttpMessageHandlerBuilderFilter, CustomLoggingHttpMessageHandlerBuilderFilter>();
 
 var cookiePolicyOptions = new CookiePolicyOptions
 {
@@ -85,6 +107,13 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
+app.Logger.LogInformation("also another messag");
+
+ILogger logger = app.Services.GetService<ILogger<Program>>();
+
+logger.LogInformation("ATSRYTS");
+
+app.UseHttpLogging();
 
 // app.UseJwtBearerAuthentication(new JwtBearerOptions()
 // {
