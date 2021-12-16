@@ -10,6 +10,18 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ILogger<AuthenticationController> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _http;
+
+
+        public LoginController(ILogger<AuthenticationController> logger, IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        {
+            _logger = logger;
+            _configuration = configuration;
+            _http = httpClientFactory;
+        }
+
         // GET: LoginController
         [AllowAnonymous]
         public ActionResult Index()
@@ -23,6 +35,8 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> AuthenticateAsync(LoginViewModel model)
         {
+            _logger.LogInformation("Yep in AUthenticate");
+
             try
             {
                 if (!isValidCredentials())
@@ -80,6 +94,57 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
         private bool isValidCredentials()
         {
+            // using (var client = new HttpClient())
+            // {
+            //     client.BaseAddress = new Uri("http://localhost:5001/api/login");
+            //     //HTTP GET
+            //     var responseTask = client.GetAsync("student");
+            //     responseTask.Wait();
+
+            //     var result = responseTask.Result;
+            //     if (result.IsSuccessStatusCode)
+            //     {
+            //         var readTask = result.Content.ReadAsAsync<IList<StudentViewModel>>();
+            //         readTask.Wait();
+
+            //         students = readTask.Result;
+            //     }
+            //     else //web api sent error response 
+            //     {
+            //         //log response status here..
+
+            //         students = Enumerable.Empty<StudentViewModel>();
+
+            //         ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+            //     }
+            // }
+
+            //new HttpClient()
+            
+
+            using (var client = _http.CreateClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:7241/api/Authentication/");
+
+                LoginModel postData = new LoginModel
+                {
+                    Username = "yayay",
+                    Password = "yayayPassword"
+                };
+
+                //HTTP POST
+                var postTask = client.PostAsJsonAsync<LoginModel>("login", postData);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    // return RedirectToAction("Index");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
+
             return true;
         }
 
