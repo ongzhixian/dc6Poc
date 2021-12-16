@@ -16,3 +16,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+/* Self-custom */
+.security-warning {
+  margin-top: 3em;
+}
+
+.security-warning > h3 {
+  margin: 1.6rem 0
+}
