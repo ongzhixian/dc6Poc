@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace Dn6Poc.DocuMgmtPortal.Controllers
 {
@@ -26,7 +28,11 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(new LoginViewModel());
+            return View(new LoginViewModel()
+            {
+                Username = "testuser@test.local",
+                Password = "testPassword"
+            });
         }
 
         public IActionResult Weather()
@@ -66,7 +72,7 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
             try
             {
-                if (!isValidCredentials())
+                if (!await isValidCredentialsAsync())
                 {
                     return Forbid();
                 }
@@ -119,7 +125,7 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
             }
         }
 
-        private bool isValidCredentials()
+        private async Task<bool> isValidCredentialsAsync()
         {
             // using (var client = new HttpClient())
             // {
@@ -155,8 +161,8 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
                 LoginModel postData = new LoginModel
                 {
-                    username = "yayay",
-                    password = "yayayPassword"
+                    Username = "yayay",
+                    Password = "yayayPassword"
                 };
 
                 //HTTP POST
@@ -166,6 +172,20 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
+                    //JwtSecurityToken token = await result.Content.ReadFromJsonAsync<JwtSecurityToken>();
+
+                    JwtSecurityTokenHandler c = new JwtSecurityTokenHandler();
+                    
+                    //string x = await result.Content.ReadAsStringAsync();
+
+                    var res = await result.Content.ReadFromJsonAsync<JwtResponse>();
+
+                    //JsonSerializer.Deserialize(result.Content.ReadAsStream(),)
+                    // JwtSecurityToken
+                    //c.ValidateToken(x);
+                    JwtSecurityToken token = c.ReadJwtToken(res.Token);
+
+                    //JwtSecurityToken token = token.re
                     // return RedirectToAction("Index");
                 }
             }

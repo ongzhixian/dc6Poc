@@ -4,7 +4,7 @@
 
 # Rewrite of the AppUser API into a better standard.
 #             https://localhost:7241/api/weatherforecast
-$base_url = "https://localhost:7241"
+$base_url = "https://localhost:5001"
 
 # Tests
 # POST   /api/AppUser
@@ -46,7 +46,7 @@ Describe "HTTP GET $path" -Tags @("HTTP", "GET", $path) {
         $url = "$base_url$path"
         $headers = @{
             "Content-Type" = "application/json"
-            "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIyIiwiZXhwIjoxNjM5NDg2NDMyLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MjQxLyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcyNDEvIn0.T-rsu1kBvKzDirxw18gDZ6b0k8HdWiNN8mlcmzGJTEA"
+            "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIyIiwiZXhwIjoxNjM5NDkyNjY2LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEvIn0.2WfBS1kXewKbk5pw6aRs3I4HbEsGirWFs5-_ecnsJCI"
         }
 
         # Act

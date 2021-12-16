@@ -21,8 +21,14 @@ using Microsoft.IdentityModel.Tokens;
 
 public class LoginModel
 {
-    public string username { get; set; }
-    public string password { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
+
+public class JwtResponse
+{
+    public string Token { get; set; }
+    public DateTime Expiration { get; set; }
 }
 
 //[AllowAnonymous]
@@ -59,9 +65,10 @@ public class AuthenticationController : ControllerBase
         return "Helo API OWRLD";
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("login")]
-    public IActionResult Login()
+    public IActionResult Login([FromBody] LoginModel model)
     {
         _logger.LogInformation("Yep in login API");
         // var authClaims = new List<Claim>
@@ -76,12 +83,12 @@ public class AuthenticationController : ControllerBase
         // }
         //[FromBody] LoginModel model
 
-        LoginModel model = new LoginModel();
+        //LoginModel model = new LoginModel();
 
 
             var authClaims = new List<Claim>();
 
-            authClaims.Add(new Claim(ClaimTypes.Name, model.username));
+            authClaims.Add(new Claim(ClaimTypes.Name, model.Username));
 
             string jwtSecret =  _configuration["JWT:Secret"];
             string jwtValidIssuer = _configuration["JWT:ValidIssuer"];
@@ -97,10 +104,10 @@ public class AuthenticationController : ControllerBase
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
 
-            return Ok(new
+            return Ok(new JwtResponse
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = token.ValidTo
             });
 
         // var user = await userManager.FindByNameAsync(model.Username);
