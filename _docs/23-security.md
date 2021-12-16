@@ -23,8 +23,16 @@ If using `_Layout.cshtml.css`, you may encouner file errors such as:
 The stylesheet https://localhost:5001/Login?ReturnUrl=%2FDn6Poc.DocuMgmtPortal.styles.css was not loaded because its MIME type, “text/html”, is not “text/css”.
 ```
 
+## AntiForgeryToken cookie
+
+```
+services.AddAntiforgery(opts => opts.Cookie.Name = "MyAntiforgeryCookie");
+```
 
 
 ## References
 
 https://nces.ed.gov/pubs98/safetech/chapter8.asp
+
+https://stackoverflow.com/questions/40511103/using-the-antiforgery-cookie-in-asp-net-core-but-with-a-non-default-cookiename
+https://long2know.com/2016/03/asp-net-anti-forgery-configuration/

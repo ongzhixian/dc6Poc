@@ -21,6 +21,10 @@ The stylesheet https://localhost:5001/Login?ReturnUrl=%2FDn6Poc.DocuMgmtPortal.s
 ```
 
 So we have to add some rule to skip authorization checks or just put them in static CSS files.
+See:
+Serving static files
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-6.0#static-file-authorization
+
 
 
 # Reference
