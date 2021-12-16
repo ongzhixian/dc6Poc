@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,9 @@ var cookiePolicyOptions = new CookiePolicyOptions
     MinimumSameSitePolicy = SameSiteMode.Strict,
 };
 
+//AntiForgeryConfig.CookieName = "__YourTokenName";
+builder.Services.AddAntiforgery(opts => opts.Cookie.Name = "MyAntiforgeryCookie");
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
@@ -20,8 +24,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
     //options.Cookie.SameSite = SameSiteMode.Lax;
-    //options.Cookie.Name =
-
+    options.Cookie.Name = "Cookie1";
 });
 
 
@@ -57,7 +60,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-        options.Cookie.Name = "Cookie";
+        options.Cookie.Name = "Cookie2";
         options.Cookie.HttpOnly = true;
         options.ExpireTimeSpan = TimeSpan.FromMinutes(720);
         options.LoginPath = new PathString("/Login");
