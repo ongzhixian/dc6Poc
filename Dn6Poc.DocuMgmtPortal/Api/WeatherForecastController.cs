@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +15,8 @@ public class WeatherForecast
     public string? Summary { get; set; }
 }
 
-[Authorize]
+//[Authorize(AuthenticationSchemes = $"{JwtBearerDefaults.AuthenticationScheme}, {CookieAuthenticationDefaults.AuthenticationScheme}")]
+[Authorize(AuthenticationSchemes = $"{JwtBearerDefaults.AuthenticationScheme}")]
 [ApiController]
 [Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase

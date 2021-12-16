@@ -29,6 +29,33 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
             return View(new LoginViewModel());
         }
 
+        public IActionResult Weather()
+        {
+
+            using (var client = _http.CreateClient("authenticatedClient"))
+            {
+                //https://localhost:7241/api/WeatherForecast
+                client.BaseAddress = new Uri("https://localhost:7241/api/");
+                //client.DefaultRequestHeaders.Add("")
+
+                //HTTP POST
+                //var postTask = client.PostAsJsonAsync<LoginModel>("login", postData);
+                //postTask.Wait();
+                // 
+                var getTask = client.GetAsync("WeatherForecast");
+                getTask.Wait();
+
+                var result = getTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    // return RedirectToAction("Index");
+                }
+            }
+
+            return View();
+        }
+
+
         // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,8 +155,8 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
                 LoginModel postData = new LoginModel
                 {
-                    Username = "yayay",
-                    Password = "yayayPassword"
+                    username = "yayay",
+                    password = "yayayPassword"
                 };
 
                 //HTTP POST

@@ -84,8 +84,12 @@ namespace Dn6Poc.DocuMgmtPortal.Logging
                         null,
                         (state, ex) => state.ToString());
 
-                    string actualContent = await request.Content.ReadAsStringAsync();
-                    logger.Log(LogLevel.Trace, "X-CONTENT:" + actualContent);
+                    if (request.Content != null)
+                    {
+                        string actualContent = await request.Content.ReadAsStringAsync();
+                        logger.Log(LogLevel.Trace, "X-CONTENT:" + actualContent);
+                    }
+
                 }
 
                 

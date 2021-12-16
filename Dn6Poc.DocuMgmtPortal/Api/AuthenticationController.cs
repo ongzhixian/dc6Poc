@@ -21,8 +21,8 @@ using Microsoft.IdentityModel.Tokens;
 
 public class LoginModel
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string username { get; set; }
+    public string password { get; set; }
 }
 
 //[AllowAnonymous]
@@ -61,23 +61,27 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public IActionResult Login([FromBody] LoginModel model)
+    public IActionResult Login()
     {
         _logger.LogInformation("Yep in login API");
-            // var authClaims = new List<Claim>
-            //     {
-            //         new Claim(ClaimTypes.Name, user.UserName),
-            //         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //     };
+        // var authClaims = new List<Claim>
+        //     {
+        //         new Claim(ClaimTypes.Name, user.UserName),
+        //         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        //     };
 
-            // foreach (var userRole in userRoles)
-            // {
-            //     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            // }
+        // foreach (var userRole in userRoles)
+        // {
+        //     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+        // }
+        //[FromBody] LoginModel model
+
+        LoginModel model = new LoginModel();
+
 
             var authClaims = new List<Claim>();
 
-            authClaims.Add(new Claim(ClaimTypes.Name, model.Username));
+            authClaims.Add(new Claim(ClaimTypes.Name, model.username));
 
             string jwtSecret =  _configuration["JWT:Secret"];
             string jwtValidIssuer = _configuration["JWT:ValidIssuer"];

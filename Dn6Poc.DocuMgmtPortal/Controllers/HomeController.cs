@@ -32,6 +32,7 @@ public class HomeController : Controller
         return View();
     }
 
+
     private string Pad(string text)
     {
         var padding = 3 - ((text.Length + 3) % 4);
