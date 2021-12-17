@@ -1,22 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc.TravalApi", "Dn6Poc.TravalApi\Dn6Poc.TravalApi.csproj", "{8B7A437C-B819-40A9-A179-4139432B14DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dn6Poc.TravalApi", "Dn6Poc.TravalApi\Dn6Poc.TravalApi.csproj", "{8B7A437C-B819-40A9-A179-4139432B14DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc.CountryApi", "Dn6Poc.CountryApi\Dn6Poc.CountryApi.csproj", "{E0B3A565-BA49-4149-A736-F942C470A2F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dn6Poc.CountryApi", "Dn6Poc.CountryApi\Dn6Poc.CountryApi.csproj", "{E0B3A565-BA49-4149-A736-F942C470A2F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc_TravelFunc", "Dn6Poc.TravelFunc\Dn6Poc_TravelFunc.csproj", "{92988D05-BDA2-4E8A-98E2-C43BACFCE472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dn6Poc_TravelFunc", "Dn6Poc.TravelFunc\Dn6Poc_TravelFunc.csproj", "{92988D05-BDA2-4E8A-98E2-C43BACFCE472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc_TravelFunc.Tests", "Dn6Poc_TravelFunc.Tests\Dn6Poc_TravelFunc.Tests.csproj", "{D6BDF678-B241-4A11-BF6B-4B1377CDAC76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dn6Poc_TravelFunc.Tests", "Dn6Poc_TravelFunc.Tests\Dn6Poc_TravelFunc.Tests.csproj", "{D6BDF678-B241-4A11-BF6B-4B1377CDAC76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc.DocuMgmtPortal", "Dn6Poc.DocuMgmtPortal\Dn6Poc.DocuMgmtPortal.csproj", "{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dn6Poc.DocuMgmtPortal", "Dn6Poc.DocuMgmtPortal\Dn6Poc.DocuMgmtPortal.csproj", "{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc.DocuMgmtPortal.Tests", "Dn6Poc.DocuMgmtPortal.Tests\Dn6Poc.DocuMgmtPortal.Tests.csproj", "{EAA82FB8-E054-4252-B234-3A7DC102DEE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dn6Poc.DocuMgmtPortal.E2ETests", "Dn6Poc.DocuMgmtPortal.E2ETests\Dn6Poc.DocuMgmtPortal.E2ETests.csproj", "{C325D2CD-0BB3-458F-A66B-EE5C25891384}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -86,5 +87,35 @@ Global
 		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x64.Build.0 = Release|Any CPU
 		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x86.ActiveCfg = Release|Any CPU
 		{6AEAE535-C46D-4D36-BE51-C0648C4E84F7}.Release|x86.Build.0 = Release|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Debug|x64.Build.0 = Debug|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Debug|x86.Build.0 = Debug|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Release|x64.ActiveCfg = Release|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Release|x64.Build.0 = Release|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Release|x86.ActiveCfg = Release|Any CPU
+		{EAA82FB8-E054-4252-B234-3A7DC102DEE2}.Release|x86.Build.0 = Release|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Debug|x64.Build.0 = Debug|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Debug|x86.Build.0 = Debug|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Release|x64.ActiveCfg = Release|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Release|x64.Build.0 = Release|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Release|x86.ActiveCfg = Release|Any CPU
+		{C325D2CD-0BB3-458F-A66B-EE5C25891384}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2557EA86-EF49-4639-BB75-5D2298AB25E9}
 	EndGlobalSection
 EndGlobal

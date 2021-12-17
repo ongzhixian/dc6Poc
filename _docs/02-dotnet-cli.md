@@ -74,5 +74,13 @@ To force the project to run in 'Development' mode with hot-reload, we should run
 `dotnet add .\Dn6Poc.DocuMgmtPortal\ package Microsoft.AspNetCore.Authentication.JwtBearer`
 `dotnet add .\Dn6Poc.DocuMgmtPortal\ package Swashbuckle.AspNetCore`
 
+
+dotnet add .\Dn6Poc.DocuMgmtPortal.E2eTests\ package Microsoft.Playwright
+dotnet add .\Dn6Poc.DocuMgmtPortal.E2eTests\ package Microsoft.Playwright.MSTest
+
+dotnet tool install --global Microsoft.Playwright.CLI
+--Instead of--
+dotnet add .\Dn6Poc.DocuMgmtPortal.E2eTests\ package Microsoft.Playwright.CLI
+
 Add nuget package to project.
 
