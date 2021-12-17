@@ -84,3 +84,14 @@ dotnet add .\Dn6Poc.DocuMgmtPortal.E2eTests\ package Microsoft.Playwright.CLI
 
 Add nuget package to project.
 
+
+## Tools & Templates
+
+dotnet tool install --global Microsoft.Playwright.CLI
+dotnet new -i SpecFlow.Templates.DotNet
+dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+dotnet tool install JetBrains.dotCover.GlobalTool -g
+dotnet tool install -g JetBrains.ReSharper.GlobalTools
+
+https://www.jetbrains.com/help/dotcover/Running_Coverage_Analysis_from_the_Command_LIne.html#to-install-dotcover-console-runner-as-a-net-global-tool
+https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html#overview-video
