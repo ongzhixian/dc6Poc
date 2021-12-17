@@ -21,6 +21,11 @@ public class WeatherForecast
 [Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+    private static class Event
+    {
+        public static readonly EventId LOGIN = new EventId(1, "a");
+    }
+
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
