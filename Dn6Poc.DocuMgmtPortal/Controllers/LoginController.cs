@@ -197,8 +197,8 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
                     HttpContext.Session.SetString("JWT", res.Token);
 
                     
-                    Dn6Poc.DocuMgmtPortal.Services.JwtService s;
-                    s.Store(User.Identity.Name, res.Token);
+                    //Dn6Poc.DocuMgmtPortal.Services.JwtService s;
+                    //s.Store(User.Identity.Name, res.Token);
 
                     //JwtSecurityToken token = token.re
                     // return RedirectToAction("Index");
