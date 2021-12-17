@@ -9,13 +9,34 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Http;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddHttpClient(); // Add IHttpClientFactory
 
-//builder.Services.AddHttpClient("authenticatedClient", (x) => {
+builder.Services.AddHttpClient("authenticatedClient", (services, http) =>
+{
+    IHttpContextAccessor httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
+    //httpContextAccessor.HttpContext.Session
+
+    if ((httpContextAccessor.HttpContext != null) && httpContextAccessor.HttpContext.Session.Keys.Contains("JWT"))
+    {
+        string token = httpContextAccessor.HttpContext.Session.GetString("JWT");
+        http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+    }
+
+});
+
+//builder.Services.AddHttpClient("authenticatedClient", (x) =>
+//{
+//    //System.Web.HttpContext.Current.User
+//    //Microsoft.AspNetCore.Identity.UserManager<>
+//    //Microsoft.AspNetCore.Http.HttpContext
+//    // IHttpContextAccessor _httpContextAccessor
 //    x.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "asddsad");
 //});
 
@@ -71,7 +92,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         // options.Authority = "https://localhost:7241";
         // options.Audience = "weatherforecast";
-        options.TokenValidationParameters = new ()
+        options.TokenValidationParameters = new()
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -93,7 +114,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = new PathString("/Login");
         options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
         options.SlidingExpiration = true;
-        
+
     });
 
 
@@ -118,7 +139,8 @@ ILogger logger = app.Services.GetService<ILogger<Program>>();
 
 logger.LogInformation("ATSRYTS");
 
-app.UseHttpLogging();app.UseHttpLogging();
+app.UseHttpLogging();
+
 
 // app.UseJwtBearerAuthentication(new JwtBearerOptions()
 // {

@@ -185,6 +185,9 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
                     //c.ValidateToken(x);
                     JwtSecurityToken token = c.ReadJwtToken(res.Token);
 
+                    //this.User.Claims.Append(new Claim("JWT", res.Token));
+                    HttpContext.Session.SetString("JWT", res.Token);
+
                     //JwtSecurityToken token = token.re
                     // return RedirectToAction("Index");
                 }
