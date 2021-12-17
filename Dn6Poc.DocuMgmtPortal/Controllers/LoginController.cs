@@ -1,4 +1,6 @@
-﻿using Dn6Poc.DocuMgmtPortal.Models;
+﻿using Dn6Poc.DocuMgmtPortal.Api;
+using Dn6Poc.DocuMgmtPortal.Api.Requests;
+using Dn6Poc.DocuMgmtPortal.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -167,14 +169,14 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
             {
                 client.BaseAddress = new Uri("https://localhost:7241/api/Authentication/");
 
-                LoginModel postData = new LoginModel
+                LoginRequest postData = new LoginRequest
                 {
                     Username = "yayay",
                     Password = "yayayPassword"
                 };
 
                 //HTTP POST
-                var postTask = client.PostAsJsonAsync<LoginModel>("login", postData);
+                var postTask = client.PostAsJsonAsync<LoginRequest>("login", postData);
                 postTask.Wait();
 
                 var result = postTask.Result;
