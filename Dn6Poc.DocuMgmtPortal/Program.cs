@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 
+
 builder.Services.AddHttpClient(); // Add IHttpClientFactory
 
 builder.Services.AddHttpClient("authenticatedClient", (services, http) =>

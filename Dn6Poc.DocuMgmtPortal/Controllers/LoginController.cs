@@ -37,6 +37,14 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
         public IActionResult Weather()
         {
+            //var tempDataDictionaryFactory = context.RequestServices.GetRequiredService<ITempDataDictionaryFactory>();
+            //var tempDataDictionary = tempDataDictionaryFactory.GetTempData(context);
+            //if (tempDataDictionary.TryGetValue(MyClaims.Claim1, out object value))
+            //{
+            //    return (string)value;
+            //}
+            // GetToken
+
 
             using (var client = _http.CreateClient("authenticatedClient"))
             {
@@ -187,6 +195,10 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
                     //this.User.Claims.Append(new Claim("JWT", res.Token));
                     HttpContext.Session.SetString("JWT", res.Token);
+
+                    
+                    Dn6Poc.DocuMgmtPortal.Services.JwtService s;
+                    s.Store(User.Identity.Name, res.Token);
 
                     //JwtSecurityToken token = token.re
                     // return RedirectToAction("Index");
