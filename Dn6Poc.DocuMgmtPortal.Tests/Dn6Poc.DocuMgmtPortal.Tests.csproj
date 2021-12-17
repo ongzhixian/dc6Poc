@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Folder Include="Drivers\" />
+    <Folder Include="Integration\" />
+    <Folder Include="Unit\" />
     <Folder Include="Support\" />
   </ItemGroup>
 
