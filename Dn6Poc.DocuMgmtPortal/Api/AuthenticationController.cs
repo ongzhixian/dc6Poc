@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-
 namespace Dn6Poc.DocuMgmtPortal.Api;
 
 public class JwtResponse
