@@ -11,150 +11,89 @@ using Microsoft.Extensions.Http;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using AppStartup = Dn6Poc.DocuMgmtPortal.Services.AppStartupService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+AppStartup.SetupLogging(builder.Host);
+
+AppStartup.SetupHttpLogging(builder.Configuration, builder.Services);
+
+AppStartup.SetupAuthentication(builder.Configuration, builder.Services);
+
+AppStartup.SetupAuthorization(builder.Services);
+
+AppStartup.SetupHttpClient(builder.Services);
+
+AppStartup.SetupSession(builder.Services);
+
+AppStartup.SetupAntiForgery(builder.Services);
+
+AppStartup.SetupCookies(builder.Services);
+
+AppStartup.SetupCors(builder.Services);
+
+AppStartup.SetupSwagger(builder.Services);
+
+// Add services to the container.
+
+//builder.Services.AddHealthChecks();
+
 builder.Services.AddHttpContextAccessor();
-
-
-builder.Services.AddHttpClient(); // Add IHttpClientFactory
-
-builder.Services.AddHttpClient("authenticatedClient", (services, http) =>
-{
-    IHttpContextAccessor httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
-    //httpContextAccessor.HttpContext.Session
-
-    if ((httpContextAccessor.HttpContext != null) && httpContextAccessor.HttpContext.Session.Keys.Contains("JWT"))
-    {
-        string token = httpContextAccessor.HttpContext.Session.GetString("JWT");
-        http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-    }
-
-});
-
-//builder.Services.AddHttpClient("authenticatedClient", (x) =>
-//{
-//    //System.Web.HttpContext.Current.User
-//    //Microsoft.AspNetCore.Identity.UserManager<>
-//    //Microsoft.AspNetCore.Http.HttpContext
-//    // IHttpContextAccessor _httpContextAccessor
-//    x.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "asddsad");
-//});
-
-builder.Services.AddHttpLogging(logging =>
-{
-    // Customize HTTP logging here.
-    logging.LoggingFields = HttpLoggingFields.All;
-    //logging.RequestHeaders.Add("My-Request-Header");
-    //logging.ResponseHeaders.Add("My-Response-Header");
-    //logging.MediaTypeOptions.AddText("application/javascript");
-    logging.RequestBodyLogLimit = 4096;
-    logging.ResponseBodyLogLimit = 4096;
-});
-
-// Place the following after all AddHttpClient registrations to implement our custom logging
-builder.Services.RemoveAll<IHttpMessageHandlerBuilderFilter>();
-builder.Services.AddSingleton<IHttpMessageHandlerBuilderFilter, CustomLoggingHttpMessageHandlerBuilderFilter>();
-
-
-var cookiePolicyOptions = new CookiePolicyOptions
-{
-    MinimumSameSitePolicy = SameSiteMode.Strict,
-};
-
-//AntiForgeryConfig.CookieName = "__YourTokenName";
-builder.Services.AddAntiforgery(opts => opts.Cookie.Name = "MyAntiforgeryCookie");
 
 builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(20);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-    //options.Cookie.SameSite = SameSiteMode.Lax;
-    options.Cookie.Name = "Cookie1";
-});
+// builder.Services.AddDatabaseDeveloperPageExceptionFilter(); // Only if using EF
 
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddAuthorization();
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
+// ...your services here...
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        // options.Authority = "https://localhost:7241";
-        // options.Audience = "weatherforecast";
-        options.TokenValidationParameters = new()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
-            ValidAudience = builder.Configuration["Jwt:ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]))
-        };
-    });
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-        options.Cookie.Name = "Cookie2";
-        options.Cookie.HttpOnly = true;
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(720);
-        options.LoginPath = new PathString("/Login");
-        options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-        options.SlidingExpiration = true;
-
-    });
-
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("RequireAdministratorRole",
-         policy => policy.RequireRole("Administrator"));
-});
-
-
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("AtLeast21", policy =>
-//        policy.Requirements.Add(new MinimumAgeRequirement(21)));
-//});
 
 var app = builder.Build();
 
-app.Logger.LogInformation("also another messag");
-
-ILogger logger = app.Services.GetService<ILogger<Program>>();
-
-logger.LogInformation("ATSRYTS");
-
-app.UseHttpLogging();
-
-
-// app.UseJwtBearerAuthentication(new JwtBearerOptions()
-// {
-//     Audience = "http://localhost:5001/", 
-//     Authority = "http://localhost:5000/", 
-//     AutomaticAuthenticate = true
-// });
-
-
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// The correct middleware order should follow:
+// ExceptionHandler
+// HSTS --
+// HttpsRedirection
+// Static Files
+// Routing
+// CORS
+// Authentication
+// Authorization
+
+// Development-only 
+if (app.Environment.IsDevelopment())
+{
+    // Logging sample code:
+    // Method 1: app.Logger
+    //app.Logger.LogInformation("Your custom log message");
+    // Method 2: Get Logger via DI
+    //ILogger? logger = app.Services.GetService<ILogger<Program>>() ?? throw new Exception($"Service ({nameof(ILogger<Program>)} does not exist.");
+    //logger.LogInformation("Your custom log message");
+
+    //if (app.Configuration.GetValue<bool>("Application:EnableHttpLogging"))
+    //    app.UseHttpLogging();
+
+    //app.UseSwagger();
+    //app.UseSwaggerUI(c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{openApiInfo.Title}; {openApiInfo.Version}");
+    //});
+}
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+
+    //app.UseDatabaseErrorPage
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -163,7 +102,13 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+// app.UseCookiePolicy();
+
 app.UseRouting();
+
+// app.UseRequestLocalization();
+
+app.UseCors("DebugAllowAll");
 
 app.UseAuthentication();
 
@@ -171,8 +116,35 @@ app.UseAuthorization();
 
 app.UseSession();
 
+// app.UseResponseCompression();
+
+// app.UseResponseCaching();
+
+//app.MapRazorPages();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+// Other development-only middleware
+if (app.Environment.IsDevelopment())
+{
+    // Logging sample code:
+    // Method 1: app.Logger
+    //app.Logger.LogInformation("Your custom log message");
+    // Method 2: Get Logger via DI
+    //ILogger? logger = app.Services.GetService<ILogger<Program>>() ?? throw new Exception($"Service ({nameof(ILogger<Program>)} does not exist.");
+    //logger.LogInformation("Your custom log message");
+
+    //if (app.Configuration.GetValue<bool>("Application:EnableHttpLogging"))
+    //    app.UseHttpLogging();
+
+    //app.UseSwagger();
+    //app.UseSwaggerUI(c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{openApiInfo.Title}; {openApiInfo.Version}");
+    //});
+}
 
 app.Run();
