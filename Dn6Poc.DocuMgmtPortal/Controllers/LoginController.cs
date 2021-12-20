@@ -1,6 +1,7 @@
 ﻿using Dn6Poc.DocuMgmtPortal.Api;
 using Dn6Poc.DocuMgmtPortal.Api.Requests;
 using Dn6Poc.DocuMgmtPortal.Models;
+using Dn6Poc.DocuMgmtPortal.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,14 +17,16 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
     {
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IConfiguration _configuration;
-        private readonly IHttpClientFactory _http;
+        //private readonly IHttpClientFactory _http;
+        private readonly LoginService _loginService;
 
-
-        public LoginController(ILogger<AuthenticationController> logger, IConfiguration configuration, IHttpClientFactory httpClientFactory)
+            
+        public LoginController(ILogger<AuthenticationController> logger, IConfiguration configuration, LoginService loginService)
         {
             _logger = logger;
             _configuration = configuration;
-            _http = httpClientFactory;
+            //_http = httpClientFactory;
+            _loginService = loginService;
         }
 
         // GET: LoginController
@@ -37,39 +40,7 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
             });
         }
 
-        public IActionResult Weather()
-        {
-            //var tempDataDictionaryFactory = context.RequestServices.GetRequiredService<ITempDataDictionaryFactory>();
-            //var tempDataDictionary = tempDataDictionaryFactory.GetTempData(context);
-            //if (tempDataDictionary.TryGetValue(MyClaims.Claim1, out object value))
-            //{
-            //    return (string)value;
-            //}
-            // GetToken
 
-
-            using (var client = _http.CreateClient("authenticatedClient"))
-            {
-                //https://localhost:7241/api/WeatherForecast
-                client.BaseAddress = new Uri("https://localhost:7241/api/");
-                //client.DefaultRequestHeaders.Add("")
-
-                //HTTP POST
-                //var postTask = client.PostAsJsonAsync<LoginModel>("login", postData);
-                //postTask.Wait();
-                // 
-                var getTask = client.GetAsync("WeatherForecast");
-                getTask.Wait();
-
-                var result = getTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    // return RedirectToAction("Index");
-                }
-            }
-
-            return View();
-        }
 
 
         // POST: LoginController/Create
@@ -82,10 +53,12 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
 
             try
             {
-                if (!await isValidCredentialsAsync())
+                if (!await isValidCredentialsAsync(model))
                 {
                     return Forbid();
                 }
+
+                // TODO Get roles
 
 
                 var claims = new List<Claim>
@@ -135,80 +108,17 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
             }
         }
 
-        private async Task<bool> isValidCredentialsAsync()
+        private async Task<bool> isValidCredentialsAsync(LoginViewModel model)
         {
-            // using (var client = new HttpClient())
-            // {
-            //     client.BaseAddress = new Uri("http://localhost:5001/api/login");
-            //     //HTTP GET
-            //     var responseTask = client.GetAsync("student");
-            //     responseTask.Wait();
+            string token = await _loginService.LoginAsync(model.Username, model.Password);
 
-            //     var result = responseTask.Result;
-            //     if (result.IsSuccessStatusCode)
-            //     {
-            //         var readTask = result.Content.ReadAsAsync<IList<StudentViewModel>>();
-            //         readTask.Wait();
-
-            //         students = readTask.Result;
-            //     }
-            //     else //web api sent error response 
-            //     {
-            //         //log response status here..
-
-            //         students = Enumerable.Empty<StudentViewModel>();
-
-            //         ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-            //     }
-            // }
-
-            //new HttpClient()
-            
-
-            using (var client = _http.CreateClient())
+            if (string.IsNullOrWhiteSpace(token))
             {
-                client.BaseAddress = new Uri("https://localhost:7241/api/Authentication/");
-
-                LoginRequest postData = new LoginRequest
-                {
-                    Username = "yayay",
-                    Password = "yayayPassword"
-                };
-
-                //HTTP POST
-                var postTask = client.PostAsJsonAsync<LoginRequest>("login", postData);
-                postTask.Wait();
-
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    //JwtSecurityToken token = await result.Content.ReadFromJsonAsync<JwtSecurityToken>();
-
-                    JwtSecurityTokenHandler c = new JwtSecurityTokenHandler();
-                    
-                    //string x = await result.Content.ReadAsStringAsync();
-
-                    var res = await result.Content.ReadFromJsonAsync<JwtResponse>();
-
-                    //JsonSerializer.Deserialize(result.Content.ReadAsStream(),)
-                    // JwtSecurityToken
-                    //c.ValidateToken(x);
-                    JwtSecurityToken token = c.ReadJwtToken(res.Token);
-
-                    //this.User.Claims.Append(new Claim("JWT", res.Token));
-                    HttpContext.Session.SetString("JWT", res.Token);
-
-                    
-                    //Dn6Poc.DocuMgmtPortal.Services.JwtService s;
-                    //s.Store(User.Identity.Name, res.Token);
-
-                    //JwtSecurityToken token = token.re
-                    // return RedirectToAction("Index");
-                }
+                ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
+                return false;
             }
 
-            ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
-
+            HttpContext.Session.SetString("JWT", token);
             return true;
         }
 

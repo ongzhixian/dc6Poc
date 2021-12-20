@@ -1,0 +1,114 @@
+﻿@model AddUserViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Add user</h1>
+
+<form method="post" asp-controller="User" asp-action="Add" asp-antiforgery="true" id="UserAddForm" autocomplete="off">
+
+    <div class="mb-3">
+        <label asp-for="Username" class="form-label">Username</label>
+        <input type="text" class="form-control" asp-for="Username" aria-describedby="usernameHelp" autocomplete="off">
+        <div id="usernameHelp" class="form-text">Enter username of user here.</div>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label">First name</label>
+        <input type="text" class="form-control" asp-for="FirstName" aria-describedby="firstNameHelp" autocomplete="off">
+        <div id="firstNameHelp" class="form-text">Enter first name of user here.</div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">Last name</label>
+        <input type="text" class="form-control" asp-for="LastName" aria-describedby="lastNameHelp" autocomplete="off">
+        <div id="lastNameHelp" class="form-text">Enter last name of user here.</div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Password</label>
+        <input type="password" class="form-control" asp-for="Password" aria-describedby="passwordHelp" autocomplete="new-password">
+        <div id="passwordHelp" class="form-text">Enter password for user here.</div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input type="text" class="form-control" asp-for="Email" aria-describedby="emailHelp" autocomplete="off">
+        <div id="emailHelp" class="form-text">Enter email address of user here.</div>
+    </div>
+
+    @*
+        <div class="mb-3">
+        <select asp-for="UserStatus" asp-items="Html.GetEnumSelectList<Dn6Poc.DocuMgmtPortal.Models.UserStatus>()" class="form-select" aria-label="User Status">></select>
+        </div>
+    *@
+
+    <button type="button" class="btn btn-primary" id="addNewButton">Submit</button>
+
+    @*<button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>*@
+
+</form>
+
+<div class="panel alerts hide">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">
+            <span class="bi-exclamation-circle-fill"></span> Invalid form</h4>
+            <p>Please fix the following errors before re-submitting the form.</p>
+            <ul class="validation-errors"></ul>
+    </div>
+</div>
+
+<hr />
+
+<div class="panel actions">
+    <a asp-area="" asp-controller="User" asp-action="Index" class="btn btn-primary"><span class="bi-chevron-left"></span> Go to user list</a>
+</div>
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }
+<script type="text/javascript">
+    "use strict";
+
+    (function($) {
+        $(document).ready(function() {
+
+            var $errorList = $("ul.validation-errors");
+            var $alertsPanel = $(".panel.alerts");
+
+            var formValidator = $("#UserAddForm").validate();
+
+            // Setup event hooks
+            $("#addNewButton").on("click", function(evt) {
+                var validForm = formValidator.form();
+                
+                $alertsPanel .hide();
+                if (!validForm)
+                {
+                    $errorList.children().remove();
+
+                    formValidator.errorList.forEach(val => 
+                        $errorList.append(`<li>${val.message}</li>`)
+                    );
+
+                    $alertsPanel .show();
+
+                }
+                else
+                {
+                    
+                    $("#UserAddForm").submit(); // Submit form
+                    // Or do some other AJAX stuff
+                }
+            }); // End  $("#addNewButton").on("click"
+
+        });
+    }(jQuery));
+
+</script>
+}

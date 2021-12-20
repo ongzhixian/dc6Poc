@@ -12,6 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using AppStartup = Dn6Poc.DocuMgmtPortal.Services.AppStartupService;
+using Dn6Poc.DocuMgmtPortal.Services;
+using MongoDB.Driver;
+using Dn6Poc.DocuMgmtPortal.MongoEntities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +51,28 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddControllersWithViews();
 
 // ...your services here...
+
+builder.Services.AddHttpClient<LoginService>();
+
+builder.Services.AddScoped<UserService>();
+
+builder.Services.AddSingleton<IMongoClient>(sp =>
+    new MongoClient(builder.Configuration.GetValue<string>("mongoDb:safeTravel")));
+
+builder.Services.AddSingleton<IMongoDatabase>(sp =>
+{
+    string mongoConnectionUrl = builder.Configuration.GetValue<string>("mongoDb:safeTravel");
+    string mongoConnectionUrlxx = builder.Configuration.GetValue<string>("mongoDb:safeTravelxx");
+
+    var mongoClient = new MongoClient(mongoConnectionUrl);
+    var databaseName = MongoUrl.Create(mongoConnectionUrl).DatabaseName;
+    return mongoClient.GetDatabase(databaseName);
+
+});
+
+builder.Services.AddSingleton<IMongoCollection<User>>(sp =>
+    sp.GetRequiredService<IMongoDatabase>().GetCollection<User>("user"));
+    
 
 
 var app = builder.Build();
@@ -121,6 +146,12 @@ app.UseSession();
 // app.UseResponseCaching();
 
 //app.MapRazorPages();
+
+//app.MapControllerRoute(
+//    name: "API",
+//    pattern: "api/{controller}/{action}/{id}",
+//    new[] { "Dn6Poc.DocuMgmtPortal.Api" }
+//    );
 
 app.MapControllerRoute(
     name: "default",
