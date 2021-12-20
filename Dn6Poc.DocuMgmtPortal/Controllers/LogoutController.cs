@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,14 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
     public class LogoutController : Controller
     {
         // GET: LogoutController
+        [AllowAnonymous]
         public async Task<ActionResult> IndexAsync()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return View();
+            TempData["SignoutFooter"] = $"You have signed out at {DateTime.Now}";
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: LogoutController/Details/5
