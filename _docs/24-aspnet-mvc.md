@@ -169,6 +169,20 @@ https://docs.microsoft.com/en-us/aspnet/core/fundamentals/websockets?view=aspnet
 
 
 
+## Tag Helpers vs Html Helpers
+
+
+## jQuery Unobtrusive Validation script
+
+The jQuery Unobtrusive Validation script is a custom Microsoft front-end library that builds on the popular jQuery Validation plugin. 
+Without jQuery Unobtrusive Validation, you would have to code the same validation logic in two places: 
+once in the server-side validation attributes on model properties, and then again in client-side scripts. 
+
+Instead, Tag Helpers and HTML helpers use the validation attributes and type metadata from model properties to render HTML 5 data- attributes for the form elements that need validation. jQuery Unobtrusive Validation parses the data- attributes and passes the logic to jQuery Validation, effectively "copying" the server-side validation logic to the client. You can display validation errors on the client using tag helpers as shown here:
+
+https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-6.0#client-side-validation
+
+
 # References
 
 Partials
