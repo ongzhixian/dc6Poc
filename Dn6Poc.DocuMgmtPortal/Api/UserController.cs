@@ -1,76 +1,123 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Dn6Poc.DocuMgmtPortal.Api.Requests;
+﻿using Dn6Poc.DocuMgmtPortal.Api.Requests;
 using Dn6Poc.DocuMgmtPortal.MongoEntities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 
-namespace Dn6Poc.DocuMgmtPortal.Api;
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-//public class JwtResponse
-//{
-//    public string Token { get; set; }
-//    public DateTime Expiration { get; set; }
-//}
-
-
-//[ApiController]
-//[Route("api/[controller]")]
-public class UserController : ControllerBase
+namespace Dn6Poc.DocuMgmtPortal.Api
 {
-    private static class Event
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(JwtBearerDefaults.AuthenticationScheme)]
+    [AllowAnonymous]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
-        public static readonly EventId LOGIN = new EventId(1, "LOGIN");
-    }
+        private readonly ILogger<UserController> _logger;
 
-    private readonly ILogger<UserController> _logger;
+        private readonly IMongoCollection<User> _userCollection;
 
-    private readonly IConfiguration _configuration;
+        public UserController(ILogger<UserController> logger, IMongoCollection<User> userCollection)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-    private readonly string _mongoConnectionUrl;
+            _userCollection = userCollection;
+        }
 
-    private readonly IMongoClient _mongoClient;
+        
+        // GET: api/<UserController>
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
+        {
+            //var query = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+            
+            //string startswith = query["startswith"];
 
-    private readonly IMongoCollection<User> _userCollection;
+            //var filter = Builders<User>.Filter.Regex(x => x.Name, new BsonRegularExpression($"^{startswith}", "i"));
+            var filter = Builders<User>.Filter.Empty;
 
-    public UserController(ILogger<UserController> logger, IConfiguration configuration, IMongoCollection<User> userCollection)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            ProjectionDefinition<User> projection = "{ id: 0 }";
 
-        _userCollection = userCollection; 
+            var cursor = await _userCollection.FindAsync<User>(filter, new FindOptions<User, User>() { 
+                //Projection = projection,
+                Sort = Builders<User>.Sort.Ascending(x => x.FirstName),
+                Limit = 10,
+                Skip = 0
+            });
 
-        //_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            var result = await cursor.ToListAsync();
 
-        //_mongoConnectionUrl = _configuration.GetValue<string>("mongoDb:safeTravel");
+            return Ok(result);
 
-        //IMongoClient _mongoClient = new MongoClient(_mongoConnectionUrl) ;
+            //await response.WriteAsJsonAsync(result);
 
-        //string databaseName = MongoUrl.Create(_mongoConnectionUrl).DatabaseName;
+            //return response;
 
-        //IMongoDatabase database = _mongoClient.GetDatabase(databaseName);
+            //_userCollection.
+            //return new string[] { "value1", "value2" };
+        }
+
+        // GET api/<UserController>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+
+            //var filter = Builders<User>.Filter.Regex(x => x.Name, new BsonRegularExpression($"^{id}$", "i"));
+
+            //ProjectionDefinition<Country> projection = "{ id: 0 }";
+
+            //var response = req.CreateResponse(HttpStatusCode.OK);
+
+            //var cursor = await _countries.FindAsync<Country>(filter, new FindOptions<Country, Country>() { Projection = projection });
+
+            //var result = await cursor.ToListAsync();
 
 
-        //database.GetCollection<User>("user");
+            return "value";
+        }
 
-        //    _mongoClient.GetDatabase() ?? throw new Exception("No database");
-        //_countries = database.GetCollection<Country>("country");
+        
+        
+        // POST api/<UserController>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] AddUserRequest value)
+        {
+            User newUser = new User
+            {
+                Username = value.Username,
+                Password = value.Password,
+                FirstName = value.FirstName,
+                LastName = value.LastName,
+                Email = value.Email,
+                Status = Models.UserStatus.Active
+            };
+            
+            await _userCollection.InsertOneAsync(newUser);
 
-        _logger.LogInformation("CountryService created");
+            return CreatedAtAction(nameof(Post), newUser);
+        }
 
+        // PUT api/<UserController>/5
+        //[HttpPut("{id}")]
+        [HttpPut]
+        public async Task<IActionResult> PutAsync([FromBody] UpdateUserStatusRequest request)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Id, request.Id);
+            
+            var update = Builders<User>.Update.Set(x => x.Status, request.UserStatus);
 
-    }
+            var updateResult = await _userCollection.UpdateOneAsync(filter, update);
 
-    [HttpPost]
-    public IActionResult Add([FromBody] LoginRequest model)
-    {
-        // mongoDb:safeTravel
+            return Ok(updateResult);
+        }
 
-
-
-
-        return Ok();
+        // DELETE api/<UserController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }

@@ -1,64 +1,52 @@
-﻿@*
+﻿@using Dn6Poc.DocuMgmtPortal.MongoEntities
+@model IEnumerable<User>
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    int row = 1;
 }
 
 <h1>User List</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First name</th>
-      <th scope="col">Last name</th>
-      <th scope="col">Status</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>Active</td>
-      <td><button class="btn btn-primary">Suspend</button>
-          <button class="btn btn-primary">Unlocked</button>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>Locked</td>
-      <td><button class="btn btn-primary">Suspend</button>
-          <button class="btn btn-primary">Unlocked</button>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>Suspend</td>
-      <td><button class="btn btn-primary">Activate</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+@if (Model == null)
+{
+    <p>No records.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@(row++)</th>
+                    <td>@item.Username</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <form method="post">
+                            <button class="btn btn-primary" asp-controller="User" asp-action="Activate" asp-route-id="@item.Id">Activate</button>
+                            <button class="btn btn-primary" asp-controller="User" asp-action="Suspend" asp-route-id="@item.Id">Suspend</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<div class="pager"></div>
+    <div class="pager"></div>
+}
 
 <div class="actions">
     <a asp-area="" asp-controller="User" asp-action="Add" class="btn btn-primary">Add user</a>
-</div>
-
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header">
-    <img src="..." class="rounded me-2" alt="...">
-    <strong class="me-auto">Bootstrap</strong>
-    <small>11 mins ago</small>
-    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-  <div class="toast-body">
-    Hello, world! This is a toast message.
-  </div>
 </div>

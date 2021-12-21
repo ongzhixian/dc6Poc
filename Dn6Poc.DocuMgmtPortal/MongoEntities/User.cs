@@ -20,6 +20,20 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
         [BsonElement("password")]
         public string Password { get; set; }
 
+
+        [JsonPropertyName("email")]
+        [BsonElement("email")]
+        public string Email { get; set; }
+
+        [JsonPropertyName("firstName")]
+        [BsonElement("firstName")]
+        public string FirstName { get; set; }
+
+
+        [JsonPropertyName("lastName")]
+        [BsonElement("lastName")]
+        public string LastName { get; set; }
+
         [JsonPropertyName("status")]
         [BsonElement("status")]
         public UserStatus Status { get; set; }

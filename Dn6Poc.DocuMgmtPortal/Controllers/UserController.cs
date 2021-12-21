@@ -1,4 +1,5 @@
 ﻿using Dn6Poc.DocuMgmtPortal.Models;
+using Dn6Poc.DocuMgmtPortal.MongoEntities;
 using Dn6Poc.DocuMgmtPortal.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +14,19 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         private readonly UserService _userService;
 
 
-        public UserController(ILogger<UserController> logger, IConfiguration configuration, UserService _userService)
+        public UserController(ILogger<UserController> logger, IConfiguration configuration, UserService userService)
         {
             _logger = logger;
             _configuration = configuration;
-            _userService = _userService;
+            _userService = userService;
         }
 
         // GET: UserController
-        public ActionResult Index()
+        public async Task<ActionResult> IndexAsync()
         {
-            
-            return View();
+            IEnumerable<User>? userList = await _userService.GetUserListAsync(10, 1);
+
+            return View(userList);
         }
 
         // GET: UserController/Details/5
@@ -49,7 +51,7 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(AddUserViewModel model)
+        public async Task<ActionResult> AddAsync(AddUserViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -59,7 +61,11 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
                 // Make 
                 // 
                 //TempData[""]
-                return RedirectToAction(nameof(Index));
+                
+                await _userService.AddUserAsync(model);
+
+                return View(model);
+                //return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -80,7 +86,7 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAsync));
             }
             catch
             {
@@ -101,12 +107,55 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAsync));
             }
             catch
             {
                 return View();
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SuspendAsync(string id)
+        {
+            //if (!ModelState.IsValid)
+            //    return View(model);
+
+            try
+            {
+                await _userService.UpdateUserStatusAsync(id, UserStatus.Suspended);
+
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ActivateAsync(string id)
+        {
+            //if (!ModelState.IsValid)
+            //    return View(model);
+
+            try
+            {
+                await _userService.UpdateUserStatusAsync(id, UserStatus.Active);
+
+                //return View(model);
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
     }
 }

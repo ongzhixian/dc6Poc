@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Http;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace Dn6Poc.DocuMgmtPortal.Services
@@ -23,6 +25,14 @@ namespace Dn6Poc.DocuMgmtPortal.Services
             //{
             //    loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
             //});
+        }
+
+        internal static void ConfigureJsonOptions(IServiceCollection services)
+        {
+            services.Configure<JsonOptions>(o =>
+            {
+                o.SerializerOptions.WriteIndented = true;
+            });
         }
 
         internal static void SetupHttpLogging(ConfigurationManager configuration, IServiceCollection services)
@@ -146,28 +156,28 @@ namespace Dn6Poc.DocuMgmtPortal.Services
 
         internal static void SetupAuthorization(IServiceCollection services)
         {
-            //builder.Services.AddAuthorization();
             services.AddAuthorization(options =>
             {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Administrator"));
+
+                options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
+                {
+                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+
+                    // Policies need at least one requirement!
+                    // policy.RequireAssertion(x => true);  // No requirements!
+                    policy.RequireClaim(ClaimTypes.Name);   // http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
+                });
+
+                //options.AddPolicy("AtLeast21", policy =>
+                //    policy.Requirements.Add(new MinimumAgeRequirement(21)));
+
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
             });
 
-
-
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireRole("Administrator"));
-            });
-
-            //builder.Services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("AtLeast21", policy =>
-            //        policy.Requirements.Add(new MinimumAgeRequirement(21)));
-            //});
 
         }
 
