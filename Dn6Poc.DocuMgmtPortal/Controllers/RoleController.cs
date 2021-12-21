@@ -1,10 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dn6Poc.DocuMgmtPortal.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dn6Poc.DocuMgmtPortal.Controllers
 {
     public class RoleController : Controller
     {
+        private readonly ILogger<UserController> _logger;
+        private readonly RoleService _roleService;
+
+
+        public RoleController(ILogger<UserController> logger, RoleService roleService)
+        {
+            _logger = logger;
+            _roleService = roleService;
+        }
+
         // GET: RoleController
         public ActionResult Index()
         {

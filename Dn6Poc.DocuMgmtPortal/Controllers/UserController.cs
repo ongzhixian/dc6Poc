@@ -12,13 +12,14 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         private readonly IConfiguration _configuration;
         //private readonly IHttpClientFactory _http;
         private readonly UserService _userService;
+        private readonly RoleService _roleService;
 
-
-        public UserController(ILogger<UserController> logger, IConfiguration configuration, UserService userService)
+        public UserController(ILogger<UserController> logger, IConfiguration configuration, UserService userService, RoleService roleService)
         {
             _logger = logger;
             _configuration = configuration;
             _userService = userService;
+            _roleService = roleService;
         }
 
         // GET: UserController
@@ -156,6 +157,50 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddAdminRoleAsync(string id)
+        {
+            //if (!ModelState.IsValid)
+            //    return View(model);
+
+            try
+            {
+                await _roleService.AddUserRoleAsync(id, "Form-designer");
+
+                //return View(model);
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RemoveAdminRoleAsync(string id)
+        {
+            //if (!ModelState.IsValid)
+            //    return View(model);
+
+            try
+            {
+                await _roleService.RemoveUserRoleAsync(id, "Form-designer");
+
+                //return View(model);
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
 
     }
 }

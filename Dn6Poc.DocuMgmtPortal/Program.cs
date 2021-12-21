@@ -59,24 +59,21 @@ builder.Services.AddHttpClient<LoginService>();
 
 builder.Services.AddScoped<UserService>();
 
+builder.Services.AddScoped<RoleService>();
+
 builder.Services.AddSingleton<IMongoClient>(sp =>
     new MongoClient(builder.Configuration.GetValue<string>("mongoDb:safeTravel")));
 
 builder.Services.AddSingleton<IMongoDatabase>(sp =>
 {
     string mongoConnectionUrl = builder.Configuration.GetValue<string>("mongoDb:safeTravel");
-    string mongoConnectionUrlxx = builder.Configuration.GetValue<string>("mongoDb:safeTravelxx");
-
     var mongoClient = new MongoClient(mongoConnectionUrl);
     var databaseName = MongoUrl.Create(mongoConnectionUrl).DatabaseName;
     return mongoClient.GetDatabase(databaseName);
-
 });
 
 builder.Services.AddSingleton<IMongoCollection<User>>(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<User>("user"));
     
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

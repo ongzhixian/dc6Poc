@@ -6,7 +6,7 @@ public class AddUserRequest : AddUserViewModel
 {
     public AddUserRequest() { }
 
-    public AddUserRequest(AddUserViewModel model) 
+    public AddUserRequest(AddUserViewModel model)
     {
         this.Username = model.Username;
         this.Password = model.Password;
@@ -14,7 +14,6 @@ public class AddUserRequest : AddUserViewModel
         this.FirstName = model.FirstName;
         this.Email = model.Email;
     }
-
 }
 
 public class UpdateUserStatusRequest
@@ -24,3 +23,14 @@ public class UpdateUserStatusRequest
     public UserStatus UserStatus { get; set; }
 }
 
+public enum UserRoleAction
+{
+    Add,
+    Remove
+}
+public class UserRoleActionRequest
+{
+    public UserRoleAction Action { get;set; }
+    public string Id { get; set; }
+    public string Role { get; set; }
+}

@@ -38,5 +38,58 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
         [BsonElement("status")]
         public UserStatus Status { get; set; }
 
+        [JsonPropertyName("roles")]
+        [BsonElement("roles")]
+        public string[] Roles { get; set; }
+
+        //
+        // Record created date
+        // Record last update
+        // Password last update
+        // Audit
+
+    }
+
+    public class XUser 
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id2 { get; set; }
+
+        //[BsonElement(elementName: "_id")]
+        //public string XID { get; set; }
+
+        [BsonElement("username")]
+        public string Username { get; set; }
+
+        [BsonElement("password")]
+        public string Password { get; set; }
+
+
+        [BsonElement("email")]
+        public string Email { get; set; }
+
+        [BsonElement("firstName")]
+        public string FirstName { get; set; }
+
+
+        [BsonElement("lastName")]
+        public string LastName { get; set; }
+
+        [BsonElement("status")]
+        public UserStatus Status { get; set; }
+
+        [BsonElement("roles")]
+        public string Roles { get; set; }
+    }
+
+
+    public class UserRoleAggregateResult
+    {
+        [BsonElement(elementName: "_id")]
+        public string XRole { get; set; }
+
+        [BsonElement(elementName: "Population")]
+        public int XCount { get; set; }
     }
 }

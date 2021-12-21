@@ -37,6 +37,8 @@ else
                         <form method="post">
                             <button class="btn btn-primary" asp-controller="User" asp-action="Activate" asp-route-id="@item.Id">Activate</button>
                             <button class="btn btn-primary" asp-controller="User" asp-action="Suspend" asp-route-id="@item.Id">Suspend</button>
+                            <button class="btn btn-primary" asp-controller="User" asp-action="AddAdminRole" asp-route-id="@item.Id">Make Admin</button>
+                            <button class="btn btn-primary" asp-controller="User" asp-action="RemoveAdminRole" asp-route-id="@item.Id">Remove Admin</button>
                         </form>
                     </td>
                 </tr>
