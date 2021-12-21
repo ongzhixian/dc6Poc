@@ -15,8 +15,11 @@ using AppStartup = Dn6Poc.DocuMgmtPortal.Services.AppStartupService;
 using Dn6Poc.DocuMgmtPortal.Services;
 using MongoDB.Driver;
 using Dn6Poc.DocuMgmtPortal.MongoEntities;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+
+AppStartup.ConfigureJsonOptions(builder.Services);
 
 AppStartup.SetupLogging(builder.Host);
 
@@ -70,8 +73,7 @@ builder.Services.AddSingleton<IMongoDatabase>(sp =>
 
 });
 
-builder.Services.AddSingleton<IMongoCollection<User>>(sp =>
-    sp.GetRequiredService<IMongoDatabase>().GetCollection<User>("user"));
+builder.Services.AddSingleton<IMongoCollection<User>>(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<User>("user"));
     
 
 
@@ -146,12 +148,6 @@ app.UseSession();
 // app.UseResponseCaching();
 
 //app.MapRazorPages();
-
-//app.MapControllerRoute(
-//    name: "API",
-//    pattern: "api/{controller}/{action}/{id}",
-//    new[] { "Dn6Poc.DocuMgmtPortal.Api" }
-//    );
 
 app.MapControllerRoute(
     name: "default",
