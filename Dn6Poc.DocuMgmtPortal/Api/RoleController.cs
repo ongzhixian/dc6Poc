@@ -37,6 +37,7 @@ namespace Dn6Poc.DocuMgmtPortal.Api
         [HttpGet]
         public async Task<List<UserRoleAggregateResult>> GetAsync()
         {
+            // Using MongoDb fluent syntax
             var res0 = await _userCollection.Aggregate()
                 .Unwind("roles")
                 .Group<UserRoleAggregateResult>(new BsonDocument {
@@ -46,7 +47,8 @@ namespace Dn6Poc.DocuMgmtPortal.Api
                 .ToListAsync();
 
             // Pick your poison
-            // -- OR --
+
+            // -- OR -- MongoDb LINQ syntax (variant 1)
             //var res1 = await _userCollection.AsQueryable()
             //    .SelectMany(x => x.Roles)
             //    .GroupBy(r => r)
@@ -57,10 +59,10 @@ namespace Dn6Poc.DocuMgmtPortal.Api
             //    })
             //    .ToListAsync();
 
-            // -- OR --
+            // -- OR -- MongoDb LINQ syntax (variant 1)
             //var res2 = await _userCollection.AsQueryable()
             //    .SelectMany(x => x.Roles)
-            //    .GroupBy(r => r, (role, valueList) => new UserRoleAggregateResult
+            //    .GroupBy(role => role, (role, valueList) => new UserRoleAggregateResult
             //    {
             //        Role = role,
             //        Count = valueList.Count()

@@ -1,4 +1,5 @@
-﻿using Dn6Poc.DocuMgmtPortal.Services;
+﻿using Dn6Poc.DocuMgmtPortal.Models;
+using Dn6Poc.DocuMgmtPortal.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,13 +20,14 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         // GET: RoleController
         public ActionResult Index()
         {
+
             return View();
         }
 
         // GET: RoleController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            return View(new RoleDetailsViewModel(id));
         }
 
         // GET: RoleController/Create
@@ -37,7 +39,7 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         // POST: RoleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(AddRoleFormModel collection)
         {
             try
             {
