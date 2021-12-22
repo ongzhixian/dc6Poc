@@ -182,6 +182,20 @@ Instead, Tag Helpers and HTML helpers use the validation attributes and type met
 
 https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-6.0#client-side-validation
 
+## The multiple models in a single view problem
+
+The ways:
+
+1. Using Dynamic Model
+2. Using View Model
+3. Using ViewData
+4. Using ViewBag
+5. Using Tuple
+6. Using Render Action Method
+
+
+See: https://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/
+
 
 # References
 
@@ -214,3 +228,5 @@ https://docs.microsoft.com/en-us/aspnet/core/performance/caching/response?view=a
 https://stackoverflow.com/questions/683646/asp-net-mvc-donut-caching-and-tempdata
 
 https://weblogs.asp.net/pjohnson/httpruntime-cache-vs-httpcontext-current-cache
+
+https://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/

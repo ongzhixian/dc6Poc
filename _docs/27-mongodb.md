@@ -292,6 +292,39 @@ public IEnumerable<string> Get()
         }
     }
 
+
+public class XUser 
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public ObjectId _id { get; set; }
+
+        //[BsonElement(elementName: "_id")]
+        //public string XID { get; set; }
+
+        [BsonElement("username")]
+        public string Username { get; set; }
+
+        [BsonElement("password")]
+        public string Password { get; set; }
+
+
+        [BsonElement("email")]
+        public string Email { get; set; }
+
+        [BsonElement("firstName")]
+        public string FirstName { get; set; }
+
+
+        [BsonElement("lastName")]
+        public string LastName { get; set; }
+
+        [BsonElement("status")]
+        public UserStatus Status { get; set; }
+
+        [BsonElement("roles")]
+        public string Roles { get; set; }
+    }
 ```
 
 
