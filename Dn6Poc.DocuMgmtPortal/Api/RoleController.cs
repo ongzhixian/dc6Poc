@@ -146,14 +146,31 @@ namespace Dn6Poc.DocuMgmtPortal.Api
             AggregateUnwindOptions<XUser> a = new AggregateUnwindOptions<XUser>();
             a.ResultSerializer = new XUserSerializer();
 
-            var res8 = _userCollection.Aggregate()
-                .Unwind<XUser>("roles", a)
-                .Group(a => a.Id2, g => new
+            //var res8 = _userCollection.Aggregate()
+            //    .Unwind<XUser>("roles", a)
+            //    .Group(x => x._id, g => new
+            //    {
+            //        Id = g.Key,
+            //        Count = g.Key
+            //    })
+            //    //.Group(b => b, g => new
+            //    //{
+            //    //    Rsult = "placeholder"
+            //    //})
+            //    .ToList();
+
+            // Just use LINQ!!?
+            // See: https://mongodb.github.io/mongo-csharp-driver/2.1/reference/driver/crud/linq/#unwind
+            var res8 = _userCollection.AsQueryable()
+                .SelectMany(r => r.Roles)
+                .GroupBy(r => r)
+                .Select(g => new
                 {
-                    Rsult = g.Key.ToString()
-                    
+                    Role = g.Key,
+                    Count = g.Count()
                 })
                 .ToList();
+
 
 
             //            var x = _userCollection.Aggregate(new BsonArray
@@ -260,7 +277,7 @@ namespace Dn6Poc.DocuMgmtPortal.Api
             XUser result = new XUser();
             
             context.Reader.ReadStartDocument();
-            result.Id2 = context.Reader.ReadObjectId().ToString();
+            result._id = context.Reader.ReadObjectId();
             result.Username = context.Reader.ReadString();
             result.Password = context.Reader.ReadString(); 
             result.Email = context.Reader.ReadString();

@@ -54,7 +54,7 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id2 { get; set; }
+        public ObjectId _id { get; set; }
 
         //[BsonElement(elementName: "_id")]
         //public string XID { get; set; }
