@@ -7,42 +7,46 @@
     // If we use nested forms, we need to specify: <label asp-for="AddRoleForm.Username" class="form-label">Username</label>
     // And if we something like this and then refer to it like so: <label asp-for="@myForm.Username" class="form-label">Username</label>
     //AddRoleFormModel myForm = new AddRoleFormModel(this.Model.RoleName);
-    // it will still generate a awful name: "myForm_Username"
-    // 
+    // it will still generate a awful name: "myForm_Username" 
+    /* @Role.SYSTEM_ADMINISTRATOR*/
+
+    int row = 1;
 }
 
 
-<h1>Members who are @Role.SYSTEM_ADMINISTRATOR</h1>
+<h1>Members who are @Model.RoleName</h1>
 
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Username</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>some username</td>
-      <td>some firstname</td>
-      <td>some lastname</td>
-      <td>remove</td>
-    </tr>
-    
-    <tr>
-      <th scope="row">2</th>
-      <td>some username</td>
-      <td>some firstname</td>
-      <td>some lastname</td>
-      <td>remove</td>
-    </tr>
-    </tr>
-    
-  </tbody>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.UserList)
+        {
+        <tr>
+            <th scope="row">@(row++)</th>
+            <td>@user.Username</td>
+            <td>@user.FirstName</td>
+            <td>@user.LastName</td>
+            <td>
+                @*<a asp-area="" asp-controller="User" asp-action="Index" class="btn btn-primary"><span class="bi-chevron-left"></span> Go to user list</a>*@
+
+
+                <form method="post">
+                    <button class="btn btn-primary" asp-controller="Role" asp-action="RemoveRole" asp-route-id="@user.Username" asp-route-role="@Model.RoleName" title="Remove role">
+                        <span class="bi-person-dash-fill"></span> Remove role</button>
+                </form>
+
+            </td>
+        </tr>
+        }
+    </tbody>
 </table>
 
 <hr />

@@ -31,6 +31,22 @@ public class RoleService
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
     }
 
+    internal async Task<IEnumerable<User>?> GetRoleUserList(string id)
+    {
+        string url = $"/api/Role/{id}";
+
+        var result = await _httpClient.GetAsync(url);
+
+        var res = await result.Content.ReadFromJsonAsync<IEnumerable<User>>();
+
+        if (!result.IsSuccessStatusCode)
+        {
+            throw new Exception("Oh no! What now?");
+        }
+
+        return res;
+    }
+
     public async Task AddUserRoleAsync(string id, string role)
     {
         UserRoleActionRequest request = new UserRoleActionRequest

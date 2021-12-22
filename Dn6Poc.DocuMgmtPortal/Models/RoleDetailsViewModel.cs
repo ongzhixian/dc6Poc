@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Dn6Poc.DocuMgmtPortal.MongoEntities;
+using System.Text;
 
 namespace Dn6Poc.DocuMgmtPortal.Models
 {
@@ -8,16 +9,20 @@ namespace Dn6Poc.DocuMgmtPortal.Models
 
         public AddRoleFormModel AddRoleForm { get;set; }
 
-        public RoleDetailsViewModel(string role)
+        public IEnumerable<User> UserList { get; set; }
+
+        public RoleDetailsViewModel(string role, IEnumerable<User> userList)
         {
             this.RoleName = role;
             this.AddRoleForm = new AddRoleFormModel(role);
+            this.UserList = userList;
         }
 
         public RoleDetailsViewModel()
         {
             this.RoleName = string.Empty;
             this.AddRoleForm = new AddRoleFormModel(string.Empty);
+            this.UserList = new List<User>();
         }
     }
 }

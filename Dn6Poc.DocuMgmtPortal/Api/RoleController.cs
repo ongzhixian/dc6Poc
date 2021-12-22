@@ -74,9 +74,11 @@ namespace Dn6Poc.DocuMgmtPortal.Api
 
         // GET api/<RoleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<List<User>> GetAsync(string id)
         {
-            return "value";
+            return await _userCollection.AsQueryable()
+                .Where(r => r.Roles.Contains(id))
+                .ToListAsync();
         }
 
         // POST api/<RoleController>
@@ -90,7 +92,7 @@ namespace Dn6Poc.DocuMgmtPortal.Api
         [HttpPut]
         public async Task<IActionResult> PutAsync([FromBody] UserRoleActionRequest request)
         {
-            var filter = Builders<User>.Filter.Eq(x => x.Id, request.Id);
+            var filter = Builders<User>.Filter.Eq(x => x.Username, request.Id);
 
             UpdateDefinition<User>? update;
 
@@ -102,7 +104,6 @@ namespace Dn6Poc.DocuMgmtPortal.Api
             var updateResult = await _userCollection.UpdateOneAsync(filter, update);
 
             return Ok(updateResult);
-
         }
 
         // DELETE api/<RoleController>/5
