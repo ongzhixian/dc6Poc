@@ -84,12 +84,21 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
     }
 
 
-    public class UserRoleAggregateResult
+    public class xUserRoleAggregateResult
     {
         [BsonElement(elementName: "_id")]
         public string XRole { get; set; }
 
         [BsonElement(elementName: "Population")]
         public int XCount { get; set; }
+    }
+
+    public class UserRoleAggregateResult
+    {
+        [BsonElement("_id")]
+        public string Role { get; set; }
+
+        [BsonElement("Count")]
+        public int Count { get; set; }
     }
 }

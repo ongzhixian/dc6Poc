@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,170 +35,39 @@ namespace Dn6Poc.DocuMgmtPortal.Api
 
         // GET: api/<RoleController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<UserRoleAggregateResult>> GetAsync()
         {
-            // https://stackoverflow.com/questions/21509045/mongodb-group-by-array-inner-elements
-
-            //_userCollection.Aggregate([
-            //    { $project: { _id: 0, roles: 1 } },
-            //]);
-
-            // Requires input and output class
-            //PipelineDefinition pipeline = new BsonDocument[]
-            //{
-            //    new BsonDocument { { "$match", new BsonDocument("x", 1) } },
-            //    new BsonDocument { { "$sort", new BsonDocument("y", 1) } }
-            //};
-
-
-            //ProjectionDefinition<User> projection = "{ id: 0, roles: 1 }";
-
-            //ProjectionDefinition<User> groupProjection = "{ _id: \"$roles\", count: { $sum : 1 } }";
-
-
-            //_userCollection.AggregateToCollection()
-
-            //var res = _userCollection.Aggregate()
-            //    //.Project<User>(projection)
-            //    .Unwind<User>("roles")
-            //    //.Group<User>(groupProjection)
-            //    .ToList();
-            //    ;
-
-            //var pipeline = collection.Aggregate().AppendStage<BsonDocument>(redact).AppendStage<BsonDocument>(project);
-            //var list = pipeline.ToList();
-
-            //_userCollection.Aggregate()
-            //    .AppendStage<BsonDocument>(new BsonDocument()
-            //    {
-            //    })
-
-            //{$project: { _id: 0, roles: 1 } },
-            //{$unwind: "$roles" },
-            //{$group: { _id: "$roles", count: {$sum: 1} }
-
-            //var res = _userCollection.Aggregate()
-            //    .Project(r => new { Id = r.Id, Roles = r.Roles})
-            //    //.ToList()
-            //    ;
-
-
-
-
-            // PipelineDefinitionBuilder
-
-
-
-            ProjectionDefinition<User> projection = "{ id: 1, roles: 1 }";
-            ProjectionDefinition<BsonDocument, UserRoleAggregateResult> groupProjection = new BsonDocument {
-                     { "_id", "$roles" },
-                     { "Population", new BsonDocument("$sum", 1) }
-                 };
-
-
-            var xx = new BsonDocument {
-                     { "_id", "$roles" },
-                     { "count", new BsonDocument("$sum", 1) }
-                 };
-
-            // Works
-            var res = _userCollection.Aggregate()
+            var res0 = await _userCollection.Aggregate()
                 .Unwind("roles")
-                .Group(new BsonDocument { { "_id", "$roles" }, { "count", new BsonDocument("$sum", 1) } })
-                .ToList();
+                .Group<UserRoleAggregateResult>(new BsonDocument {
+                     { "_id", "$roles" },
+                     { "Count", new BsonDocument("$sum", 1) }
+                 })
+                .ToListAsync();
 
-            // Works
-            var res3 = _userCollection.Aggregate()
-                .Unwind(r => r.Roles)
-                .Group(new BsonDocument { { "_id", "$roles" }, { "count", new BsonDocument("$sum", 1) } })
-                .ToList();
-
-            var res4 = _userCollection.Aggregate()
-                .Unwind(r => r.Roles)
-                .Group(groupProjection)
-                .ToList();
-
-            var res5 = _userCollection.Aggregate()
-                .Unwind(r => r.Roles)
-                .Group<UserRoleAggregateResult>(groupProjection)
-                .ToList();
-
-            //_userCollection.Find(a => a.)
-            
-
-            var res6 = _userCollection.Aggregate()
-                .Unwind(r => r.Roles)
-                .Group(
-                    new BsonDocument("_id", "$roles")
-                    .Add("population", new BsonDocument("$sum", 1))
-                )
-                .ToList();
-
-            // Compiles but wrong
-            //var res7 = _userCollection.Aggregate()
-            //    .Group(a => a.Roles, g => new
+            // Pick your poison
+            // -- OR --
+            //var res1 = await _userCollection.AsQueryable()
+            //    .SelectMany(x => x.Roles)
+            //    .GroupBy(r => r)
+            //    .Select(r => new UserRoleAggregateResult
             //    {
-            //        Rsult = g.Count()
-            //    }).ToList();
-
-            var res7 = _userCollection.Aggregate()
-                .Unwind<XUser>("roles")
-                .ToList();
-
-            AggregateUnwindOptions<XUser> a = new AggregateUnwindOptions<XUser>();
-            a.ResultSerializer = new XUserSerializer();
-
-            //var res8 = _userCollection.Aggregate()
-            //    .Unwind<XUser>("roles", a)
-            //    .Group(x => x._id, g => new
-            //    {
-            //        Id = g.Key,
-            //        Count = g.Key
+            //        Role = r.Key,
+            //        Count = r.Count()
             //    })
-            //    //.Group(b => b, g => new
-            //    //{
-            //    //    Rsult = "placeholder"
-            //    //})
-            //    .ToList();
+            //    .ToListAsync();
 
-            // Just use LINQ!!?
-            // See: https://mongodb.github.io/mongo-csharp-driver/2.1/reference/driver/crud/linq/#unwind
-            var res8 = _userCollection.AsQueryable()
-                .SelectMany(r => r.Roles)
-                .GroupBy(r => r)
-                .Select(g => new
-                {
-                    Role = g.Key,
-                    Count = g.Count()
-                })
-                .ToList();
+            // -- OR --
+            //var res2 = await _userCollection.AsQueryable()
+            //    .SelectMany(x => x.Roles)
+            //    .GroupBy(r => r, (role, valueList) => new UserRoleAggregateResult
+            //    {
+            //        Role = role,
+            //        Count = valueList.Count()
+            //    })
+            //    .ToListAsync();
 
-
-
-            //            var x = _userCollection.Aggregate(new BsonArray
-            //{
-            //    new BsonDocument("$project",
-            //    new BsonDocument
-            //        {
-            //            { "_id", 0 },
-            //            { "roles", 1 }
-            //        }),
-            //    new BsonDocument("$unwind",
-            //    new BsonDocument("path", "$roles")),
-            //    new BsonDocument("$group",
-            //    new BsonDocument
-            //        {
-            //            { "_id", "$roles" },
-            //            { "count",
-            //    new BsonDocument("$sum", 1) }
-            //        })
-            //});
-
-
-
-            //db.articles.aggregate({ "$project" : { "author" : 1, "_id" : 0} })  
-
-            return new string[] { "value1", "value2" };
+            return res0;
         }
 
         // GET api/<RoleController>/5
@@ -238,65 +109,4 @@ namespace Dn6Poc.DocuMgmtPortal.Api
         {
         }
     }
-
-
-    //public class XUserSerializer : MongoDB.Bson.Serialization.IBsonSerializer<XUser>
-    //{
-    //    public Type ValueType => throw new NotImplementedException();
-
-    //    public XUser Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public void Serialize(BsonSerializationContext context, BsonSerializationArgs args, XUser value)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public void Serialize(BsonSerializationContext context, BsonSerializationArgs args, object value)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    object IBsonSerializer.Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-    public class XUserSerializer : MongoDB.Bson.Serialization.Serializers.SerializerBase<XUser>
-    {
-        public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, XUser value)
-        {
-            base.Serialize(context, args, value);
-        }
-
-        public override XUser Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
-        {
-            XUser result = new XUser();
-            
-            context.Reader.ReadStartDocument();
-            result._id = context.Reader.ReadObjectId();
-            result.Username = context.Reader.ReadString();
-            result.Password = context.Reader.ReadString(); 
-            result.Email = context.Reader.ReadString();
-            result.FirstName = context.Reader.ReadString();
-            result.LastName = context.Reader.ReadString();
-            result.Status = (UserStatus)context.Reader.ReadInt32();
-            result.Roles = context.Reader.ReadString();
-
-            context.Reader.ReadEndDocument();
-
-            return result;
-
-
-            //context.Reader.State
-            //context.Reader.CurrentBsonType
-
-            //return base.Deserialize(context, args);
-        }
-    }
-
-
 }
