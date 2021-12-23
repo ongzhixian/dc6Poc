@@ -36,11 +36,12 @@ jobs:
         dotnet build --configuration Release --output ./output
         popd
     # Then login to Azure and deploy it
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v1
-      with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+    # Works; But oh wait, don't deploy first
+    # - uses: azure/login@v1
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+    # - name: 'Run Azure Functions Action'
+    #   uses: Azure/functions-action@v1
+    #   with:
+    #     app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+    #     package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
