@@ -91,3 +91,30 @@ wdContentControlText 	                1 	Specifies a text content control
 How to: Add a custom task pane to an application
 https://docs.microsoft.com/en-us/visualstudio/vsto/how-to-add-a-custom-task-pane-to-an-application?view=vs-2022
 
+Deploying a VSTO Solution Using Windows Installer
+https://docs.microsoft.com/en-us/visualstudio/vsto/deploying-a-vsto-solution-by-using-windows-installer?view=vs-2022
+
+Program VSTO Add-ins
+https://docs.microsoft.com/en-us/visualstudio/vsto/programming-vsto-add-ins?view=vs-2022
+
+
+VisioComAddinNet5 (using  .NET 5 (core) "Hello World" example.)
+https://github.com/nbelyh/VisioComAddinNet5
+
+Content controls in Word
+https://docs.microsoft.com/en-us/office/client-developer/word/content-controls-in-word
+
+
+Special requirements for add-ins on the iPad
+https://docs.microsoft.com/en-us/office/dev/add-ins/develop/develop-office-add-ins-for-the-ipad
+
+
+Office Yeoman generator
+https://github.com/OfficeDev/generator-office
+the Yeoman generator provides more options in terms of the types of projects you can create. 
+For example:
+
+1.  The Yeoman generator can create Office Add-in projects that use plain HTML, CSS & JavaScript, or React, or Angular, whereas Visual Studio can only create Office Add-in projects that use plain HTML, CSS & JavaScript.
+
+2.  The Yeoman generator can create Office Add-ins projects that use TypeScript, whereas Visual Studio cannot.
+3.  The Yeoman generator can create add-ins for Excel, OneNote, Outlook, PowerPoint, Project, Word, Excel Custom Functions, whereas Visual Studio can only create add-ins for Excel, Outlook, PowerPoint, and Word.
