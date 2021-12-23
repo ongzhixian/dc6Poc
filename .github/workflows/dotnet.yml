@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName!~Dn6Poc.DocuMgmtPortal.E2ETests
 
     # Everything looks OK; Now make release build  
     - name: 'Build (Release)'
