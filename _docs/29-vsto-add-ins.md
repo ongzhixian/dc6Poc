@@ -34,6 +34,29 @@ You can create custom task panes in VSTO Add-ins for some Microsoft Office appli
 
 
 
+# 
+
+
+npx office-addin-dev-settings appcontainer EdgeWebView --loopback
+npx office-addin-dev-certs install
+npx office-addin-dev-certs verify
+
+
+    To enable loopback for Edge, use this command:
+
+    CheckNetIsolation LoopbackExempt -a -n="Microsoft.MicrosoftEdge_8wekyb3d8bbwe"
+
+    To disable loopback for Edge use this command:
+
+    CheckNetIsolation.exe LoopbackExempt –d –n="Microsoft.MicrosoftEdge_8wekyb3d8bbwe"
+
+
+
+
+See: https://help.hcltechsw.com/appscan/ADAC/9.0.3/en-US/r_LoopbackForEdge.html
+See: https://docs.microsoft.com/en-us/previous-versions/windows/apps/hh780593(v=win.10)?redirectedfrom=MSDN
+
+
 # Reference
 
 https://docs.microsoft.com/en-us/visualstudio/vsto/getting-started-programming-vsto-add-ins?view=vs-2022
@@ -108,6 +131,8 @@ https://docs.microsoft.com/en-us/office/client-developer/word/content-controls-i
 Special requirements for add-ins on the iPad
 https://docs.microsoft.com/en-us/office/dev/add-ins/develop/develop-office-add-ins-for-the-ipad
 
+
+https://github.com/OfficeDev/Office-Addin-Scripts/tree/master/packages/office-addin-mock#examples
 
 Office Yeoman generator
 https://github.com/OfficeDev/generator-office
