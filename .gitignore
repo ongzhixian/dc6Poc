@@ -356,6 +356,7 @@ ako.ps1
 *secrets.json
 MyReference-*
 ignore-*.*
+[Bb]enchmark[Rr]esult*/
 
 !Tests/**/*.test.ps1
 
