@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Dn6Poc.DocuMgmtPortal.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="//unpkg.com/grapesjs/dist/css/grapes.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" />
+
+    <link rel="stylesheet" href="~/css/grapesjs-preset-webpage.min.css" >
     
 </head>
 <body>
@@ -97,11 +99,8 @@
         </nav>
 
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+    @RenderBody()
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -115,7 +114,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="//unpkg.com/grapesjs"></script>
+    <script src="//feather.aviary.com/imaging/v3/editor.js"></script>
+    <script src="https://static.filestackapi.com/v3/filestack-0.1.10.js"></script>
+    <script src="https://unpkg.com/grapesjs"></script>
+    <script src="~/js/grapesjs-preset-webpage.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

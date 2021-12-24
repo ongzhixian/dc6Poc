@@ -171,4 +171,6 @@ if (app.Environment.IsDevelopment())
     //});
 }
 
+Console.WriteLine("YEAY");
+
 app.Run();
