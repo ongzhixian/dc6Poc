@@ -209,9 +209,9 @@ namespace Dn6Poc.DocuMgmtPortal.Services
 
 
             // Place the following after all AddHttpClient registrations to implement our custom logging
-
-            services.RemoveAll<IHttpMessageHandlerBuilderFilter>();
-            services.AddSingleton<IHttpMessageHandlerBuilderFilter, CustomLoggingHttpMessageHandlerBuilderFilter>();
+            // EnableHttpLogging
+            //services.RemoveAll<IHttpMessageHandlerBuilderFilter>();
+            //services.AddSingleton<IHttpMessageHandlerBuilderFilter, CustomLoggingHttpMessageHandlerBuilderFilter>();
         }
 
     }

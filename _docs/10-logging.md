@@ -11,7 +11,14 @@ dotnet add .\Dn6Poc.TravalApi\ package Serilog.Sinks.File
 dotnet add .\Dn6Poc.TravalApi\ package Serilog.Extensions.Hosting
 dotnet add .\Dn6Poc.TravalApi\ package Serilog.Settings.Configuration
 dotnet add .\Dn6Poc.TravalApi\ package Serilog.Formatting.Compact
+dotnet add .\Dn6Poc.TravalApi\ package Serilog.AspNetCore
 ```
+
+Aside: It is questionable if we really need `Serilog.AspNetCore` package.
+       It is stated here because of the `UseSerilogRequestLogging()` middleware which allow you to log HTTP requests.
+       The questionable aspect is whether `UseSerilogRequestLogging()` then custom HTTP logging.
+       See: https://github.com/serilog/serilog-aspnetcore
+
 
 ```xml:reference only (From Rabbit project)
 <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.18" />
@@ -176,7 +183,27 @@ To customize, see:
 https://www.stevejgordon.co.uk/httpclientfactory-asp-net-core-logging
 https://docs.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/5.0/http-httpclient-instances-log-integer-status-codes
 
+
+
+# Serilog-related
+
+// To UseSerilogRequestLogging, we would need `Serilog.AspNetCore` package.
+dotnet add .\MiniTools.Web\ package Serilog.AspNetCore
+
+Creating custom serilog enrichers
+https://www.ctrlaltdan.com/2018/08/14/custom-serilog-enrichers/
+
+
+https://stackoverflow.com/questions/62212569/how-to-get-serilog-to-use-custom-enricher-from-json-config-file
+
+
 # Reference
 
 HTTP Logging in ASP.NET Core
 https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-logging/?view=aspnetcore-6.0
+
+Understanding ASP.NET Core - logging
+https://programmer.help/blogs/understanding-asp.net-core-logging.html
+
+Message Templates
+https://messagetemplates.org/

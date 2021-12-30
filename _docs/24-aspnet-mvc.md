@@ -230,3 +230,7 @@ https://stackoverflow.com/questions/683646/asp-net-mvc-donut-caching-and-tempdat
 https://weblogs.asp.net/pjohnson/httpruntime-cache-vs-httpcontext-current-cache
 
 https://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/
+
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/formats-and-model-binding/bson-support-in-web-api-21
+
+https://andrewlock.net/preventing-mass-assignment-or-over-posting-in-asp-net-core/

@@ -411,3 +411,10 @@ https://chsakell.gitbook.io/mongodb-csharp-docs/aggregation/unwind-stage
 https://stackoverflow.com/questions/61719742/getting-mongodb-documents-but-tolistasync-on-iqueryable-throws-exception
 
 https://gist.github.com/rlondner/a6b1f14c110021f15610122abc47a8ae
+
+https://mongodb.github.io/mongo-csharp-driver/1.11/serialization/
+
+
+https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/mapping/conventions/
+https://github.com/mongodb/mongo-csharp-driver/blob/master/src/MongoDB.Bson/Serialization/Conventions/CamelCaseElementNameConvention.cs
+http://mongodb.github.io/mongo-csharp-driver/2.7/reference/bson/mapping/conventions/#custom-conventions
