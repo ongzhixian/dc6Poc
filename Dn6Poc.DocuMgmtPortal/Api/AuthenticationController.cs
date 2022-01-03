@@ -10,7 +10,7 @@ namespace Dn6Poc.DocuMgmtPortal.Api;
 
 public class JwtResponse
 {
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; init; } = string.Empty;
 
     public DateTime Expiration { get; set; }
 }
@@ -22,7 +22,7 @@ public class AuthenticationController : ControllerBase
 {
     private static class Event
     {
-        public static readonly EventId LOGIN = new EventId(1, "LOGIN");
+        public static readonly EventId Login = new EventId(1, "LOGIN");
     }
 
     private readonly ILogger<AuthenticationController> _logger;
@@ -40,7 +40,7 @@ public class AuthenticationController : ControllerBase
     [Route("login")]
     public IActionResult Login([FromBody] LoginRequest model)
     {
-        _logger.LogInformation(Event.LOGIN, string.Empty);
+        _logger.LogInformation(Event.Login, string.Empty);
 
         _logger.LogInformation("Yep in login API");
 
@@ -61,9 +61,10 @@ public class AuthenticationController : ControllerBase
         //LoginModel model = new LoginModel();
 
 
-        var authClaims = new List<Claim>();
-
-        authClaims.Add(new Claim(ClaimTypes.Name, model.Username));
+        var authClaims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, model.Username)
+        };
 
         string jwtSecret = _configuration["JWT:Secret"];
         string jwtValidIssuer = _configuration["JWT:ValidIssuer"];

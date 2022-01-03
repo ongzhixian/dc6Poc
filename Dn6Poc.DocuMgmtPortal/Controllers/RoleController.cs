@@ -1,7 +1,6 @@
 ﻿using Dn6Poc.DocuMgmtPortal.Models;
 using Dn6Poc.DocuMgmtPortal.MongoEntities;
 using Dn6Poc.DocuMgmtPortal.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dn6Poc.DocuMgmtPortal.Controllers
@@ -33,10 +32,10 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         }
 
         // GET: RoleController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: RoleController/Create
         [HttpPost]
@@ -55,31 +54,31 @@ namespace Dn6Poc.DocuMgmtPortal.Controllers
         }
 
         // GET: RoleController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: RoleController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: RoleController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: RoleController/Delete/5
         [HttpPost]

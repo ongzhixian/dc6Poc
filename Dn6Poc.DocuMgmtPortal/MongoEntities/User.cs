@@ -14,29 +14,29 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
 
         [JsonPropertyName("username")]
         [BsonElement("username")]
-        public string Username { get; set; } = string.Empty;
+        public string Username { get; init; } = string.Empty;
 
         [JsonPropertyName("password")]
         [BsonElement("password")]
-        public string Password { get; set; } = string.Empty;
+        public string Password { get; init; } = string.Empty;
 
 
         [JsonPropertyName("email")]
         [BsonElement("email")]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; init; } = string.Empty;
 
         [JsonPropertyName("firstName")]
         [BsonElement("firstName")]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; init; } = string.Empty;
 
 
         [JsonPropertyName("lastName")]
         [BsonElement("lastName")]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; init; } = string.Empty;
 
         [JsonPropertyName("status")]
         [BsonElement("status")]
-        public UserStatus Status { get; set; }
+        public UserStatus Status { get; init; }
 
         [JsonPropertyName("roles")]
         [BsonElement("roles")]

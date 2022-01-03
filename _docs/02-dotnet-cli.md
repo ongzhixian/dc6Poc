@@ -98,3 +98,15 @@ dotnet new -i BenchmarkDotNet.Templates
 
 https://www.jetbrains.com/help/dotcover/Running_Coverage_Analysis_from_the_Command_LIne.html#to-install-dotcover-console-runner-as-a-net-global-tool
 https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html#overview-video
+
+
+find code issues in a solution, run:
+jb inspectcode YourSolution.sln -o=<PathToOutputFile>
+jb inspectcode --build --output=inspectcode-result.html --format=Html .\Dn6Poc.DocuMgmtPortal\Dn6Poc.DocuMgmtPortal.csproj
+
+reformat code and fix code style in a solution, run:
+jb cleanupcode YourSolution.sln
+
+dotnet dotcover test  --dcReportType=HTML --dcOutput=dotcover.html  .\Dn6Poc.DocuMgmtPortal.Tests\
+
+dotnet watch dotcover test  --dcReportType=HTML --dcOutput=dotcover.html  --project .\Dn6Poc.DocuMgmtPortal.Tests\

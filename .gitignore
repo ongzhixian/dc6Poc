@@ -360,3 +360,4 @@ ignore-*.*
 
 !Tests/**/*.test.ps1
 
+**/dotcover

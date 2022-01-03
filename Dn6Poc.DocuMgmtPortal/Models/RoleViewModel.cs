@@ -4,25 +4,25 @@ namespace Dn6Poc.DocuMgmtPortal.Models
 {
     public class Role
     {
-        public const string SYSTEM_ADMINISTRATOR = "system-administrator";
-        public const string FORM_DESIGNER = "form-designer";
-        public const string USER = "user";
+        public const string SystemAdministrator = "system-administrator";
+        public const string FormDesigner = "form-designer";
+        public const string User = "user";
     }
 
     public enum ApplicationRoles
     {
-        SYSTEM_ADMINISTRATOR,
-        FORM_DESIGNER,
-        USER
+        SystemAdministrator,
+        FormDesigner,
+        User
     }
 
     public class AddRoleFormModel
     {
         [Required]
-        public string Username { get; set; }
+        public string Username { get; init; }
 
         [Required]
-        public string RoleName { get; set; }
+        public string RoleName { get; init; }
 
         public AddRoleFormModel(string role)
         {

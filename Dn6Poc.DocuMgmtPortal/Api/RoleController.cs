@@ -1,13 +1,10 @@
 ﻿using Dn6Poc.DocuMgmtPortal.Api.Requests;
-using Dn6Poc.DocuMgmtPortal.Models;
 using Dn6Poc.DocuMgmtPortal.MongoEntities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,7 +17,6 @@ namespace Dn6Poc.DocuMgmtPortal.Api
     [ApiController]
     public class RoleController : ControllerBase
     {
-
         private readonly ILogger<UserController> _logger;
 
         private readonly IMongoCollection<User> _userCollection;

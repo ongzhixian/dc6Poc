@@ -1,5 +1,4 @@
 ﻿using Dn6Poc.DocuMgmtPortal.MongoEntities;
-using System.Text;
 
 namespace Dn6Poc.DocuMgmtPortal.Models
 {

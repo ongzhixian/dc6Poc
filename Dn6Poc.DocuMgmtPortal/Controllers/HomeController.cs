@@ -33,15 +33,15 @@ public class HomeController : Controller
     }
 
 
-    private string Pad(string text)
-    {
-        var padding = 3 - ((text.Length + 3) % 4);
-        if (padding == 0)
-        {
-            return text;
-        }
-        return text + new string('=', padding);
-    }
+    //private string Pad(string text)
+    //{
+    //    var padding = 3 - ((text.Length + 3) % 4);
+    //    if (padding == 0)
+    //    {
+    //        return text;
+    //    }
+    //    return text + new string('=', padding);
+    //}
 
     //[Authorize(Roles ="Administrator")]
     [Authorize("RequireAdministratorRole")]

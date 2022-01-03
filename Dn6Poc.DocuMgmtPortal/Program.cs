@@ -1,21 +1,8 @@
-using System.Text;
 //using Dn6Poc.DocuMgmtPortal.Logging;
-using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Http;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using AppStartup = Dn6Poc.DocuMgmtPortal.Services.AppStartupService;
 using Dn6Poc.DocuMgmtPortal.Services;
 using MongoDB.Driver;
 using Dn6Poc.DocuMgmtPortal.MongoEntities;
-using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 

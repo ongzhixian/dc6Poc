@@ -1,15 +1,11 @@
 ﻿using Dn6Poc.DocuMgmtPortal.Api;
-using Dn6Poc.DocuMgmtPortal.Api.Requests;
 using Dn6Poc.DocuMgmtPortal.Models;
 using Dn6Poc.DocuMgmtPortal.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text.Json;
 
 namespace Dn6Poc.DocuMgmtPortal.Controllers
 {
