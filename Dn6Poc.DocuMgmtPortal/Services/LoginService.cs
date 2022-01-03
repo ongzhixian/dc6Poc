@@ -34,13 +34,14 @@ public class LoginService
         {
             JwtSecurityTokenHandler c = new JwtSecurityTokenHandler();
 
-            var res = await result.Content.ReadFromJsonAsync<JwtResponse>();
+            JwtResponse? res = await result.Content.ReadFromJsonAsync<JwtResponse>();
 
-            JwtSecurityToken token = c.ReadJwtToken(res.Token);
-            c.CanReadToken(res.Token);
+            if ((res != null) && c.CanReadToken(res.Token))
+            {
+                // JwtSecurityToken token = c.ReadJwtToken(res.Token);
 
-            return res.Token;
-            //HttpContext.Session.SetString("JWT", res.Token);
+                return res.Token;
+            }
         }
 
         return String.Empty;

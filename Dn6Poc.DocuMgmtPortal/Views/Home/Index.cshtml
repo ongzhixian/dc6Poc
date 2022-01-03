@@ -7,7 +7,7 @@
     <h1 class="display-4">Welcome to @Configuration["Application:Name"]</h1>
 </div>
 
-@if (!User.Identity.IsAuthenticated)
+@if ((User.Identity != null) && (!User.Identity.IsAuthenticated))
 {
     @await Html.PartialAsync("/Views/Shared/_SecurityWarningPartial.cshtml")
 } 

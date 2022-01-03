@@ -65,7 +65,7 @@ namespace Dn6Poc.DocuMgmtPortal.Logging
                     logger.Log(
                         LogLevel.Trace,
                         EventIds.RequestHeader,
-                        new CustomHttpHeadersLogValue(CustomHttpHeadersLogValue.Kind.Request, request.Headers, request.Content?.Headers),
+                        new CustomHttpHeadersLogValue(CustomHttpHeadersLogValue.Kind.Request, request.Headers, request?.Content?.Headers),
                         null,
                         (state, ex) => state.ToString());
                 }

@@ -13,6 +13,10 @@
     int row = 1;
 }
 
+@if (Model == null)
+{
+    return;
+}
 
 <h1>Members who are @Model.RoleName</h1>
 

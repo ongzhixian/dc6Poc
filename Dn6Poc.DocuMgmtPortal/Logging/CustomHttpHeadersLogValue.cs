@@ -13,6 +13,7 @@ namespace Dn6Poc.DocuMgmtPortal.Logging
         private readonly Kind _kind;
 
         private string _formatted;
+
         private List<KeyValuePair<string, object>> _values;
 
         public CustomHttpHeadersLogValue(Kind kind, HttpHeaders headers, HttpHeaders contentHeaders)
@@ -20,6 +21,7 @@ namespace Dn6Poc.DocuMgmtPortal.Logging
             _kind = kind;
 
             Headers = headers;
+
             ContentHeaders = contentHeaders;
         }
 

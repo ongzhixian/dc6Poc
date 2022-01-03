@@ -18,7 +18,7 @@ public class AddUserRequest : AddUserViewModel
 
 public class UpdateUserStatusRequest
 {
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     public UserStatus UserStatus { get; set; }
 }
@@ -31,6 +31,6 @@ public enum UserRoleAction
 public class UserRoleActionRequest
 {
     public UserRoleAction Action { get;set; }
-    public string Id { get; set; }
-    public string Role { get; set; }
+    public string Id { get; set; } = string.Empty;
+    public string Role { get; set; } = string.Empty;
 }

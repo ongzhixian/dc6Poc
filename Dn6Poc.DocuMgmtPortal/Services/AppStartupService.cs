@@ -1,4 +1,4 @@
-﻿using Dn6Poc.DocuMgmtPortal.Logging;
+﻿//using Dn6Poc.DocuMgmtPortal.Logging;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

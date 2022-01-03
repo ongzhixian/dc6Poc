@@ -10,7 +10,8 @@ namespace Dn6Poc.DocuMgmtPortal.Api;
 
 public class JwtResponse
 {
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
+
     public DateTime Expiration { get; set; }
 }
 
@@ -117,7 +118,7 @@ public class AuthenticationController : ControllerBase
         //     });
         // }
 
-        return Unauthorized();
+        //return Unauthorized();
     }
 
 

@@ -10,29 +10,29 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
         [JsonPropertyName("id")]
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [JsonPropertyName("username")]
         [BsonElement("username")]
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
         [JsonPropertyName("password")]
         [BsonElement("password")]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
 
         [JsonPropertyName("email")]
         [BsonElement("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [JsonPropertyName("firstName")]
         [BsonElement("firstName")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
 
         [JsonPropertyName("lastName")]
         [BsonElement("lastName")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         [JsonPropertyName("status")]
         [BsonElement("status")]
@@ -40,7 +40,7 @@ namespace Dn6Poc.DocuMgmtPortal.MongoEntities
 
         [JsonPropertyName("roles")]
         [BsonElement("roles")]
-        public string[] Roles { get; set; }
+        public string[] Roles { get; set; } = new string[] { };
 
         //
         // Record created date

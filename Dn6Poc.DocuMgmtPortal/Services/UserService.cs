@@ -49,14 +49,15 @@ public class UserService
 
         var result = await _httpClient.GetAsync(url);
 
-        var res = await result.Content.ReadFromJsonAsync<IEnumerable<User>>();
-
-        if (!result.IsSuccessStatusCode)
+        if (result.IsSuccessStatusCode)
         {
-            throw new Exception("Oh no! What now?");
+            IEnumerable<User>? res = await result.Content.ReadFromJsonAsync<IEnumerable<User>>();
+
+            if (res != null)
+                return res;
         }
 
-        return res;
+        return new List<User>();
     }
 
     //internal async Task SuspendUserAsync(string id)

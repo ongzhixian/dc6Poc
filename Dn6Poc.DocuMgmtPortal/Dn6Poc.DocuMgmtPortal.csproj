@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Logging\CustomHttpHeadersLogValue.cs" />
+    <Compile Remove="Logging\CustomLoggingHttpMessageHandler.cs" />
+    <Compile Remove="Logging\CustomLoggingHttpMessageHandlerBuilderFilter.cs" />
+    <Compile Remove="Logging\CustomLoggingScopeHttpMessageHandler.cs" />
+    <Compile Remove="Logging\CustomValueStopwatch.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
@@ -15,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Api\Responses\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
 
 </Project>
