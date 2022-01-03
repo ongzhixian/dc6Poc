@@ -250,6 +250,27 @@ Describe "HTTP GET $path" -Tags @("HTTP", "GET", $path) {
 ```
 
 
+## Mocking
+
+Example
+
+```ps1
+        Mock -CommandName Invoke-WebRequest -Verifiable -MockWith {
+            return @{
+                StatusCode = 200,
+            }
+#             return @"
+#             [{"id":1,"country_name":"Malaysia"},{"id":222,"country_name":"Malaysia"},{"id":12,"country_name":"Singapore"},{"id":23,"country_name":"Singapore"},{"id":223,"country_name":"Singapore"}]
+# "@ | ConvertFrom-Json
+        } -ParameterFilter {
+            $uri -match $uri -and $Method -eq "Get"
+        }
+```
+
+
+
+
+
 ## Reference: HttpResponseMessage object (for mocking response)
 
 Fields of response object:
