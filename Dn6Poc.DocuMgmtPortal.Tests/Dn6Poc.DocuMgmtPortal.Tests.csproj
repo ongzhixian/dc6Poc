@@ -22,4 +22,8 @@
     <Folder Include="Support\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dn6Poc.DocuMgmtPortal\Dn6Poc.DocuMgmtPortal.csproj" />
+  </ItemGroup>
+
 </Project>
