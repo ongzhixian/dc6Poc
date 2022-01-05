@@ -83,6 +83,89 @@ Ignore arguments
                     .IgnoreArguments()                                      .Returns(true);
                     .Return(true); 	
 
+
+# Mocking notes
+
+https://stackoverflow.com/questions/47198341/how-to-unit-test-httpcontext-signinasync
+https://stackoverflow.com/questions/48873454/no-service-for-type-microsoft-aspnetcore-mvc-has-been-registered/48875448
+https://stackoverflow.com/questions/7601972/what-is-the-best-way-to-test-a-redirecttoaction/9886309
+https://coderedirect.com/questions/527099/asp-net-core-2-0-signinasync-returns-exception-value-cannot-be-null-provider
+
+
+```cs
+DefaultHttpContext MakeHttpContext()
+{
+    // Need mock of IAuthenticationService to handle HttpContext.SignIn
+    var mockAuthenticationService = new Mock<IAuthenticationService>();
+
+    mockAuthenticationService
+        .Setup(_ => _.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
+        .Returns(Task.CompletedTask);
+
+    // Need mock of IUrlHelperFactory to properly handle RedirectToAction
+    var mockUrlHelperFactory = new Mock<IUrlHelperFactory>();
+
+    // Setup mock service provider
+
+    var serviceProviderMock = new Mock<IServiceProvider>();
+
+    serviceProviderMock
+        .Setup(_ => _.GetService(typeof(IAuthenticationService)))
+        .Returns(mockAuthenticationService.Object);
+
+    serviceProviderMock
+        .Setup(_ => _.GetService(typeof(IUrlHelperFactory)))
+        .Returns(mockUrlHelperFactory.Object);
+
+    return new DefaultHttpContext()
+    {
+        RequestServices = serviceProviderMock.Object
+    };
+}
+```
+
+
+```cs:Setup options monitor
+[TestMethod()]
+public async Task IndexAsyncTestAsync()
+{
+    Mock<ILogger<LoginController>> mockLogger = new Mock<ILogger<LoginController>>();
+    Mock<IAuthenticationApiService> mockAuthenticationApiService = new Mock<IAuthenticationApiService>();
+    Mock<IJwtService> mockJwtService = new Mock<IJwtService>();
+
+    //Mock<IOptionsMonitor<JwtSettings>> mockOptionsMonitor = new Mock<IOptionsMonitor<JwtSettings>>();
+    //mockOptionsMonitor.Setup(m => m.Get("jwt")).Returns(new JwtSettings
+    //{
+    //    SecretKey = "placeHolderSecretKey",
+    //    ValidIssuer = "placeHolderValidIssuer",
+    //    ValidAudience = "placeHolderValidAudience"
+    //});
+
+    mockJwtService.Setup(m => m.GetClaims("jwt")).Returns(new List<Claim>());
+
+    OperationResult<LoginResponse> operationResult = new(true, new LoginResponse()
+    {
+        ExpiryDateTime = DateTime.UtcNow,
+        Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    });
+
+    mockAuthenticationApiService.Setup(a => a.IsValidCredentialsAsync(It.IsAny<LoginViewModel>())).ReturnsAsync(operationResult);
+
+    LoginController loginController = new LoginController(
+        mockLogger.Object,
+        mockAuthenticationApiService.Object,
+        mockJwtService.Object
+        );
+
+    IActionResult? result = await loginController.IndexAsync(new LoginViewModel());
+
+    Assert.IsNotNull(result);
+    Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+    Assert.AreEqual("Index", ((RedirectToActionResult)result).ActionName);
+
+}
+```
+
 # Reference
 
 
