@@ -42,7 +42,7 @@ builder.Services.AddControllersWithViews();
 
 // ...your services here...
 
-builder.Services.AddHttpClient<LoginService>();
+builder.Services.AddHttpClient<ILoginService, LoginService>();
 
 builder.Services.AddScoped<UserService>();
 

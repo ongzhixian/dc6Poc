@@ -110,3 +110,9 @@ jb cleanupcode YourSolution.sln
 dotnet dotcover test  --dcReportType=HTML --dcOutput=dotcover.html  .\Dn6Poc.DocuMgmtPortal.Tests\
 
 dotnet watch dotcover test  --dcReportType=HTML --dcOutput=dotcover.html  --project .\Dn6Poc.DocuMgmtPortal.Tests\
+
+dotnet dotcover test --dcAttributeFilters=System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute --dcFilters="-:type=AspNetCoreGeneratedDocument.*;-:type=Program" --dcReportType=HTML --dcOutput=ignore/dotcover.html .\MiniTools.Web.UnitTests\
+
+-- TechTalk.SpecFlow.MSTest.Generator.SpecFlowPlugin
+
+dotnet dotcover test --dcAttributeFilters=System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute --dcFilters="-:type=AspNetCoreGeneratedDocument.*;-:type=Program;-:type=TechTalk.*" --dcReportType=HTML --dcOutput=TestResults/dotcover.html .\Dn6Poc.DocuMgmtPortal.Tests\
