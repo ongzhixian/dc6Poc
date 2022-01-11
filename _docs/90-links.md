@@ -703,3 +703,16 @@ https://visualstudiomagazine.com/articles/2021/05/07/testing-tools.aspx
 	https://www.zeta-resource-editor.com/index.html
 
 dotnet watch dotcover test  --dcReportType=HTML --dcOutput=dotcover.html  --project .\Dn6Poc.DocuMgmtPortal.Tests\
+
+
+https://api.singpass.gov.sg/developers#onboard-dev
+https://www.developer.tech.gov.sg/technologies/data-and-apis/onemap-apis
+https://github.com/opengovsg/formsg/
+https://www.developer.tech.gov.sg/technologies/open-source/#!
+https://secure.mas.gov.sg/api/Search.aspx
+
+
+https://github.com/dotnet-architecture
+https://github.com/dotnet-architecture/eShopOnContainers
+
+https://referbruv.com/blog/posts/implementing-stream-based-communication-with-grpc-and-aspnet-core
