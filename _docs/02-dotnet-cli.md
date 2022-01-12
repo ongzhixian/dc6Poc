@@ -93,6 +93,8 @@ dotnet new -i SpecFlow.Templates.DotNet
 dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
 dotnet tool install JetBrains.dotCover.GlobalTool -g
 dotnet tool install -g JetBrains.ReSharper.GlobalTools
+dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+dotnet tool install -g dotnet-grpc
 
 
 dotnet new -i BenchmarkDotNet.Templates
