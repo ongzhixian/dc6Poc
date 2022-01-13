@@ -30,7 +30,7 @@
 7.  <cosmosdb | mongodb | sqlite | litedb | boltDB | H2  | Azure Databases | Postgres | dapr >
 8.  <GIS | H3 | leaflet>
 9.  <rabbitmq | IBM MQ | MSMQ>
-10. <ml.net | Bonsai | OpenPAI>
+10. <ml.net | Infer | Bonsai | OpenPAI>
 
 10. <sanddance | Azure Tools | Live Preview | Web TS | Azurite | PR Quant>
 11. <cmake | GN>
@@ -44,6 +44,8 @@
 19. <Logging>
 20. <CouchDB | OrientDB | RethinkDB | ArangoDB | Snowflake>
 21. <Crank | BenchmarkDotnet | Bombardier>
+22. Ocelet | Tye
+
 
 ## Applications
 
@@ -54,4 +56,5 @@ Wiki/Doc
 Timesheet
 Payroll
 Onboarding
+
 
