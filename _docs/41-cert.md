@@ -107,3 +107,12 @@ Set-AuthenticodeSignature -FilePath C:\PS\my_posh_script.ps1 -Certificate $cert
 
 
 https://www.ibm.com/docs/en/ibm-mq/9.2?topic=certificates-distinguished-names
+
+
+https://stackoverflow.com/questions/42786986/how-to-create-a-valid-self-signed-x509certificate2-programmatically-not-loadin
+
+
+https://access.redhat.com/documentation/en-us/red_hat_certificate_system/9/html/administration_guide/standard_x.509_v3_certificate_extensions
+
+https://oidref.com/1.3.6.1.1.15
+http://oid-info.com/get/1.3.6.1.5.5.7.3.1
