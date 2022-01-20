@@ -92,3 +92,14 @@ https://thecloudblog.net/post/build-a-basic-graphql-server-with-asp.net-core-and
 
 
 https://finnhub.io/docs/api
+
+https://libguides.singaporetech.edu.sg/stats/data-api
+https://towardsdatascience.com/exploring-data-gov-sg-api-725e344048dc
+https://www.smartnation.gov.sg/resources/open-data
+https://www.developer.tech.gov.sg/technologies/data-and-apis/data-gov-sg
+
+https://registry.opendata.aws/
+https://www.google.com/publicdata/directory
+https://towardsdatascience.com/exploring-data-gov-sg-api-725e344048dc
+
+https://towardsdatascience.com/detecting-real-time-and-unsupervised-anomalies-in-streaming-data-a-starting-point-760a4bacbdf8
