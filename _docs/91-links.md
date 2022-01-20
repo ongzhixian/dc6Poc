@@ -71,3 +71,24 @@ npm install -g @microsoft/teamsfx-cli
 https://github.com/OfficeDev/Microsoft-Teams-Samples
 
 https://rubikscode.net/tag/mlnet/
+
+
+https://rapidapi.com/blog/best-stock-api/
+
+Finnhub         : Real-Time RESTful APIs and Websocket for Stocks, Currencies, and Crypto
+Market Stack    : Real-Time, Intraday & Historical Market Data API.
+Polygon         : Financial Market Data Platform, Stock APIs, Forex, Crypto, and More.
+Yahoo Finance   : stock prices and quote comparison.
+Alpha Vintage   : an effective way to receive stock, ETF, forex, technical indicators, and cryptocurrency data.
+Twelve Data     : Instant access for real-time and historical data of stocks, forex, crypto, ETFs, indices, and more.
+
+https://documentation.tradier.com/brokerage-api/streaming/get-markets-events
+
+https://towardsdatascience.com/detecting-real-time-and-unsupervised-anomalies-in-streaming-data-a-starting-point-760a4bacbdf8
+
+https://www.gridgain.com/resources/blog/apache-cassandra-vs-apache-ignite-affinity-collocation-and-distributed-sql
+
+https://thecloudblog.net/post/build-a-basic-graphql-server-with-asp.net-core-and-entity-framework-in-10-minutes/
+
+
+https://finnhub.io/docs/api
